@@ -1,0 +1,222 @@
+@import '~@ionic/angular/css/ionic.bundle.css';
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Satoshi Variable', 'Source Sans Pro';
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+input {
+    border: none;
+}
+
+body {
+    width: 144rem;
+}
+
+.customer-details-screen--sPF {
+    width: 100%;
+    position: relative;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-col {
+    background-color: #d9e7ed;
+    height: 100%;
+    font-size: 100%;
+    font-weight: 600;
+    color: #41474a;
+
+    display: flex;
+    align-items: center;
+    padding: 0% 2%;
+}
+
+.table-col-head {
+    background-color: #73a5bc;
+    font-size: 115%;
+    font-weight: 700;
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    padding: 0% 2%;
+}
+
+.rows:nth-of-type(2n + 1) {
+    .table-col {
+        background-color: #e0e2e2;
+    }
+}
+
+.rows:nth-of-type(2n + 2) {
+    .table-col {
+        background-color: #fff;
+    }
+}
+
+.searchbar-input {
+    border-radius: 1rem !important;
+    line-height: 36px !important;
+}
+
+ion-searchbar {
+    .searchbar-input-container {
+        .searchbar-input {
+            border-radius: 1rem !important;
+            line-height: 36px !important;
+        }
+    }
+}
+
+.sc-ion-searchbar-md-h {
+    --border-radius: 1rem !important;
+    --box-shadow: none !important;
+}
+
+.table-scroll {
+    display: block;
+    empty-cells: show;
+    width: 100%;
+    border-spacing: 0;
+}
+
+.table-scroll thead {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: #73a5bc;
+    font-size: 100%;
+    font-weight: 700;
+    color: #ffffff;
+
+}
+
+.table-scroll tbody {
+    display: block;
+    position: relative;
+    width: 100%;
+    overflow-y: scroll;
+    font-size: 100%;
+    font-weight: 600;
+    color: #41474a;
+}
+
+.table-scroll tr {
+    width: 100%;
+    display: flex;
+}
+
+.table-scroll td,
+.table-scroll th {
+    flex-basis: 100%;
+    // flex-grow: 2;
+    display: block;
+    padding: 1rem;
+    text-align: left;
+}
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child {
+    flex-basis: 20%;
+    flex-grow: 1;
+}
+
+.table-scroll tbody tr:nth-child(2n) {
+    background-color: rgb(5 21 26 / 12%);
+}
+
+.body-half-screen {
+    max-height: 40vh;
+}
+
+option:checked{
+    // background: green;
+    color: rgb(0, 0, 0);
+ }
+
+.small-col {
+    flex-basis: 10%;
+}
+
+
+ion-content {
+    --offset-bottom: 0px !important;
+    --overflow: hidden;
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.historyContainer {
+    height: 100%;
+    padding: 2%;
+    background: #d9e7ed;
+}
+
+.searchbar {
+    width: 95%;
+    font-size: 100%;
+    font-weight: 500;
+    color: #2a2f30;
+}
+
+.toggleBtnSelect {
+    border: none;
+    width: 95%;
+    border-radius: 1rem;
+    font-size: 100%;
+    font-weight: 600;
+    color: #41474a;
+    outline: 2px solid #fff;
+    background: #fff;
+    height: 100%;
+}
+
+.activitySelect {
+    border: 1px solid #fff;
+    width: 95%;
+    float: right;
+    border-radius: 1rem;
+    font-size: 100%;
+    font-weight: 600;
+    color: #41474a;
+    outline: 2px solid #fff;
+    background: #fff;
+    height: 100%;
+}
+
+.historyCard {
+    background: #ffff;
+    margin: 2% 0% 0% 0%;
+    padding: 1% 2%;
+    border-radius: 1rem;
+}
+
+.filterClick {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    font-weight: 700;
+    align-items: center;
+    border-radius: 6rem;
+    width: 24%;
+    justify-content: center;
+    // font-size: 125%; 
+    height: 45px;
+}

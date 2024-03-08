@@ -1,0 +1,52 @@
+<div class="customer-details-screen--sPF">
+  <div class="top-header-Beq">
+    <div class="auto-group-tjg3-617">
+      <img class="logo-dWq" src="../../assets/logo-6kh.png" />
+      <p class="am-4-8-2023-m7F">{{todaysDate | date: 'MM/dd/YYYY hh:mm a'}}</p>
+    </div>
+    <div class="auto-group-y5ju-UGZ">
+      <div class="nav nav-tabs d-flex" id="nav-tab" role="tablist">
+        <div class="home-cGH">
+          <a class="w-100 nav-item nav-link"
+            style="height:100%;flex: 1; display: flex; align-items: center; justify-content: center;" routerLink="/tab2"
+            routerLinkActive="active">
+            <ion-icon name="home-outline" style="width: 25%; color: #fff;"></ion-icon>
+            <span style="font-size: 93%;font-weight: 700;color: #ffffff;font-family: Satoshi Variable, 'Source Sans Pro';
+            white-space: nowrap;flex-shrink: 0;">Home</span>
+          </a>
+        </div>
+        <div class="history-moP">
+          <a class="w-100 nav-item nav-link"
+            style="height:100%;flex: 1; display: flex; align-items: center; justify-content: center;" routerLink="/tab6"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <ion-icon name="refresh-circle-outline" style="width: 25%; color: #fff;"></ion-icon>
+            <span style="font-size: 93%;font-weight: 700;color: #ffffff;font-family: Satoshi Variable, 'Source Sans Pro';
+            white-space: nowrap;flex-shrink: 0;">History</span>
+          </a>
+        </div>
+        <div class="new-kfK">
+          <a class="w-100 nav-item nav-link"
+            style="height:100%;flex: 1; display: flex; align-items: center; justify-content: center;" routerLink="/tab5"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <ion-icon name="person-outline" style="width: 25%; color: #fff;"></ion-icon>
+            <span style="font-size: 93%;font-weight: 700;color: #ffffff;font-family: Satoshi Variable, 'Source Sans Pro';
+            white-space: nowrap;flex-shrink: 0;">New</span>
+          </a>
+        </div>
+        <div class="settings-vy7">
+          <a class="w-100 nav-item nav-link"
+            style="height:100%;flex: 1; display: flex; align-items: center; justify-content: center;"
+            routerLink="/setting" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <ion-icon name="settings-outline" style="width: 25%; color: #fff;"></ion-icon>
+            <span style="font-size: 93%;font-weight: 700;color: #ffffff;font-family: Satoshi Variable, 'Source Sans Pro';
+            white-space: nowrap;flex-shrink: 0;">Settings</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="group-13-ity">
+      <img class="vector-eGq" src="{{businessGroupLogo}}" />
+      <!-- <p class="make-your-fortune-here-Nid">Make Your Fortune Here</p> -->
+    </div>    
+  </div>
+</div>

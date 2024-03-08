@@ -1,0 +1,266 @@
+@import '~@ionic/angular/css/ionic.bundle.css';
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Satoshi Variable', 'Source Sans Pro';
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+input {
+    border: none;
+}
+
+body {
+    width: 144rem;
+}
+
+.customer-details-screen--sPF {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #d9e7ed;
+    overflow-y: scroll;
+}
+
+ion-checkbox::part(container) {
+    border-radius: 50%;
+}
+
+.sc-ion-input-md-h {
+    padding: 0px 0px 0px 10px !important;
+}
+
+ion-checkbox {
+    --size: 26px;
+    --background-checked: #203139;
+    --border-color-checked: #d9e7ed;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.keypadBtn {
+    height: 100%;
+    font-weight: 700;
+    color: #000000;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 0.1rem #73a5bc;
+    box-sizing: border-box;
+    // box-shadow: inset 0 0.5rem 1rem rgba(0, 0, 0, 0.0500000007);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    width: 32%;
+    font-size: 130%;
+}
+
+.keypadBtn:active {
+    transform: scale(0.9);
+}
+
+#numberDetails {
+    height: 100%;
+    width: 100%;
+}
+
+#memberDetails {
+    height: 100%;
+    width: 100%;
+    padding: 0% 2%;
+}
+
+.numberDetailsContainer {
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.phoneNumberDiv {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: solid 0.1rem #73a5bc;
+    // box-shadow: inset 0 0.5rem 1rem rgba(0, 0, 0, 0.0500000007);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    width: 60%;
+    height: 15%;
+    justify-content: center;
+}
+
+.phoneNumberText {
+    min-height: 0;
+    height: 100%;
+    color: #54708e;
+    font-size: 200%;
+}
+
+.dialpad {
+    width: 60%;
+    height: 65%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialpadCard {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialpadRow {
+    display: flex;
+    width: 100%;
+    height: 36%;
+    column-gap: 2%;
+    align-items: center;
+    margin-top: 1%;
+}
+
+.BtnRow {
+    // height: 10%;
+    margin: 1% 0%;
+}
+
+.BtnDiv {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background-color: #203139;
+    border-radius: 12rem;
+    padding: 10%;
+    justify-content: center;
+}
+
+.BtnText {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 110%;
+    margin-right: 8%;
+}
+
+.addMemberDetailsRow {
+    width: 100%;
+    margin: 1% 0%;
+    height: 10%;
+}
+
+.addMemberDetailsHeaderText {
+    font-weight: 700;
+    color: #717679;
+    font-size: 165%;
+}
+
+.DetailFormCard {
+    width: 100%;
+    height: 85%;
+    background: #ffffff;
+    box-sizing: border-box;
+    padding: 2% 2% 2% 2%;
+    border-radius: 2rem;
+}
+
+.InputNameText {
+    font-weight: 500;
+    color: #717679;
+    font-size: 115%;
+}
+
+.InputText {
+    font-weight: 500;
+    color: #203139;
+    background-color: #f4f5f5;
+    border-radius: 6rem;
+    width: 100%;
+    height: 75%;
+}
+
+.DropDownContainer {
+    font-weight: 500;
+    color: #203139;
+    background-color: #f4f5f5;
+    border-radius: 6rem;
+    width: 100%;
+    padding: 1% 6%;
+    font-size: 115%;
+    height: 57%;
+    border: 1px solid #ced4da;
+}
+
+.modal {
+    height: 40%;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    height: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.modal-header {
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #24343ced;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: #203139;
+
+    font-size: 125%;
+    color: #fff;
+}
+
+.modal-body {
+    height: 50%;
+    padding: 3%;
+}
+
+.bodyModalText {
+    font-weight: 500;
+    color: #556d78;
+    
+    font-size: 95%;
+}
+
+.BtnModalText {
+    display: flex;
+    align-items: center;
+    border-radius: 12rem;    
+    padding: 2%;
+    justify-content: center;
+    height: 95%;
+    font-size: 120%;
+    margin-right: 3%;
+    font-weight: 700;
+    color: #ffffff;
+    
+    width: 25%;
+}

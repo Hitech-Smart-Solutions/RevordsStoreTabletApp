@@ -1,0 +1,294 @@
+@import '~@ionic/angular/css/ionic.bundle.css';
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Satoshi Variable', 'Source Sans Pro';
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+input {
+    border: none;
+}
+
+body {
+    width: 144rem;
+}
+
+.customer-details-screen--sPF {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #d9e7ed;
+}
+
+.frame-31-ssP {
+    background-color: #73a5bc;
+    width: 95%;
+    height: 75%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0.8377rem 1.6754rem rgb(80 141 169 / 45%);
+    border: dashed 2px #407086;
+    border-radius: 28px;
+    position: absolute;
+    left: 2%;
+    top: 13%;
+}
+
+.checkcircle-MXf {
+    margin: 0% 4% 0% 0%;
+    width: 10%;
+    object-fit: contain;
+    vertical-align: top;
+    flex-shrink: 0;
+}
+
+.check-computers-tablets-and-gadgets-UcH {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.3500000712;
+    color: #ffffff;
+    font-family: 'Satoshi Variable', "Source Sans Pro";
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.group-31-8uo {
+    width: 75%;
+    height: 50%;
+    position: relative;
+}
+
+.vector-3-MAH {
+    width: 8%;
+    height: 40%;
+    position: absolute;
+    left: 0px;
+    top: 0;
+    object-fit: contain;
+    vertical-align: top;
+}
+
+.vector-4-hE9 {
+    width: 8%;
+    height: 40%;
+    position: absolute;
+    left: 92%;
+    top: 62%;
+    object-fit: contain;
+    vertical-align: top;
+}
+
+.homeContainer {
+    background: #d9e7ed;
+    width: 100%;
+    height: 100%;
+    padding: 0% 1% 1% 2%;
+}
+
+.home {
+    width: 100%;
+    height: 65%;
+}
+
+.memberCardRow {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    padding: 0% 0% 1% 0%;
+}
+
+.memberCardCol {
+    padding-inline-end: 1% !important;
+    margin-top: 2%;
+}
+
+.memberCard {
+    border-radius: 7% !important;
+    width: 100% !important;
+    margin: 0% !important;
+    background-color: white !important;
+}
+
+.memberName {
+    display: flex;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #203139;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1%;
+}
+
+.memberSince {
+    font-size: 73%;
+    font-weight: 700;
+    line-height: 1.3499999728;
+    color: #8c9194;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tagText {
+    font-size: 75%;
+    height: 100%;
+    font-weight: bold;
+    color: #ffffff;
+
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8c9194;
+    border-radius: 10px;
+}
+
+.timer {
+    font-size: 100%;
+    font-weight: 700;
+    color: #203139;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.rewardList {
+    width: 100%;
+    height: 33%;
+    margin: 1% 0% 0% 0%;
+    overflow: scroll;
+}
+
+.rewardCol {
+    padding: 0% 1% 0% 0%;
+    height: 40%;
+    margin-bottom: 1%;
+}
+
+.rewardCard {
+    width: 100%;
+    height: 100%;
+    background: none;
+    box-shadow: none;
+}
+
+.rewardCardRow {
+    height: 100%;
+}
+
+.rewardCardLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 45px 0 0 45px;
+    height: 100%;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 118%;
+}
+
+.rewardCardRight {
+    background: #fff;
+    border-radius: 0px 45px 45px 0;
+    height: 100%;
+    padding: 0% 0% 0% 11px;
+    display: flex;
+    align-items: center;
+}
+
+.rewardNameText {
+    font-weight: 700;
+    color: #203139;
+    font-size: 130%;
+}
+
+.rewardExpiryText {
+    font-weight: 700;
+    color: #e04a39;
+    font-size: 90%;
+}
+
+.modal {
+    height: 60%;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.modal-header {
+    width: 100%;
+    height: 40%;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #24343ced;
+}
+
+.modal-title {
+    font-weight: 500;
+    color: #203139;
+    font-size: 100%;
+    color: #fff;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.modal-body {
+    height: 60%;
+    padding: 2%;
+}
+
+.modal-bodyText {
+    font-weight: 500;
+    color: #556d78;
+    font-size: 90%;
+    height: 92px;
+    overflow-y: scroll;
+}
+
+.modal-footer {
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+}
+
+.modal-footerBtn {
+    display: flex;
+    align-items: center;
+    border-radius: 12rem;
+    width: 25%;
+    padding: 2%;
+    justify-content: center;
+    height: 95%;
+    font-size: 120%;
+    margin-right: 3%;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.modal-footerBtn:active {
+    transform: scale(0.95);
+}

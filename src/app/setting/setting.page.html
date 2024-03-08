@@ -1,0 +1,14 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <app-header></app-header>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div class="wrapper historyContainer" *ngIf="!isLoading">
+    <p style="font-weight: 600; color: #203139; font-size: 20px;">Business Group : <span style="font-weight: 500; font-size: 18px;">{{businessGroupName}}</span></p>
+    <p style="font-weight: 600; color: #203139; font-size: 20px;">Source : <span style="font-weight: 500; font-size: 18px;">{{sourceName}}</span></p>
+    <p style="font-weight: 600; color: #203139; font-size: 20px;">App Version : <span style="font-weight: 500; font-size: 18px;">{{currentVersion}}</span></p>
+  </div>
+  <app-tab7 *ngIf="isLoading"></app-tab7>
+</ion-content>

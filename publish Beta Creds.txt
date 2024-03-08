@@ -1,0 +1,25 @@
+KEYSTORE MAKER 
+
+
+STEP 1 :
+C:\Program Files\Java\jre1.8.0_241\bin
+keytool -genkey -v -keystore hitechapp.jks -keyalg RSA -keysize 5096 -validity 10000 -alias hitech
+
+JARSIGNER 
+STEP 2 :
+C:\Program Files\Java\jdk1.8.0_241\bin
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore hitechapp.jks D:\HiMappAPK.apk hitech
+
+OPTIMIZE APK
+STEP 3:
+D:\AndroidSDK\build-tools\28.0.0
+zipalign -v 4 D:\HiMappAPK.apk D:\HiTechTEST.apk
+
+VERIFY APK
+STEP 4:
+apksigner verify D:\HiTechTEST.apk
+
+keytool -keystore hitechapp.jks -list -v
+
+keystore key : hitech@123
+
