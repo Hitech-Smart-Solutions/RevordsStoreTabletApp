@@ -15,4 +15,20 @@ export class PromotionService {
         return member;
       }));
   }
+
+  GetPromotionsByMemberId(BusinessLocationID: any, MemberId: any) {
+    return this.http.get(CONSTANTS.API_ENDPOINT + `Promotions/GetPromotionsByMemberId/${BusinessLocationID}/${MemberId}`);
+  }
+
+  UpdateRewardsInStore(data: any) {
+    return this.http.put(CONSTANTS.API_ENDPOINT + 'Promotions/UpdateRewardsInStore', data).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  UpdateRedeemRewardsInStore(data: any) {
+    return this.http.put(CONSTANTS.API_ENDPOINT + 'Promotions/UpdateRedeemRewardsInStore', data).pipe(map(res => {
+      return res;
+    }));
+  }
 }

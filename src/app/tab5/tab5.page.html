@@ -1,18 +1,20 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <app-header></app-header>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
   <div class="customer-details-screen--sPF" *ngIf="!isLoading">
-    <div style="height: 465px;">
-      <ion-row style="height: 100%; width: 100%;">
-        <form (ngSubmit)="submit()" [formGroup]="multistep" style="width: 100%;">
-          <div id="numberDetails" *ngIf="step == 1" formGroupName="addNumberDetails">
+    <div style="height: 465px">
+      <ion-row style="height: 100%; width: 100%">
+        <form (ngSubmit)="submit()" [formGroup]="multistep" style="width: 100%">
+          <div
+            id="numberDetails"
+            *ngIf="step == 1"
+            formGroupName="addNumberDetails"
+          >
             <div class="numberDetailsContainer">
               <div class="phoneNumberDiv">
-                <ion-label class="phoneNumberText ion-text-center" floating placeholder="(000) 000-0000">{{phoneNumber}}
+                <ion-label
+                  class="phoneNumberText ion-text-center"
+                  floating
+                  placeholder="(000) 000-0000"
+                  >{{phoneNumber}}
                 </ion-label>
               </div>
               <div class="dialpad">
@@ -34,7 +36,11 @@
                   </div>
                   <div class="dialpadRow">
                     <div class="keypadBtn" (click)="click('0')">0</div>
-                    <div class="keypadBtn" style="width: 66%;" (click)="click('delete-left')">
+                    <div
+                      class="keypadBtn"
+                      style="width: 66%"
+                      (click)="click('delete-left')"
+                    >
                       <img width="6%" src="./assets/backspace.png" />
                     </div>
                   </div>
@@ -43,14 +49,32 @@
             </div>
           </div>
 
-          <div id="memberDetails" *ngIf="step == 2" formGroupName="addMemberDetails">
+          <div
+            id="memberDetails"
+            *ngIf="step == 2"
+            formGroupName="addMemberDetails"
+          >
             <ion-row class="addMemberDetailsRow">
               <ion-col size="1">
-                <img src="../../assets/backButton.png" style="position: absolute; width: 45%; top: 10%; left: 8%; background: #ffffff;
-                border-radius: 50%; padding: 10%;" (click)="back()" />
+                <img
+                  src="../../assets/backButton.png"
+                  style="
+                    position: absolute;
+                    width: 45%;
+                    top: 10%;
+                    left: 8%;
+                    background: #ffffff;
+                    border-radius: 50%;
+                    padding: 10%;
+                  "
+                  (click)="back()"
+                />
               </ion-col>
               <ion-col size="11">
-                <div class="d-flex align-items-center" style="width: 100%; height: 100%;">
+                <div
+                  class="d-flex align-items-center"
+                  style="width: 100%; height: 100%"
+                >
                   <ion-col size="12">
                     <p class="addMemberDetailsHeaderText">Add Details</p>
                   </ion-col>
@@ -58,112 +82,217 @@
               </ion-col>
             </ion-row>
             <div class="DetailFormCard">
-              <ion-row style="height: 20%;">
+              <ion-row style="height: 20%">
                 <ion-col size="1" class="d-flex align-items-center">
                   <p class="InputNameText">Name</p>
                 </ion-col>
-                <ion-col size="5" class="d-flex align-items-center justify-content-center">
+                <ion-col
+                  size="5"
+                  class="d-flex align-items-center justify-content-center"
+                >
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control InputText" type="text" formControlName="name" autocomplete="off">
+                    <ion-input
+                      class="form-control InputText"
+                      type="text"
+                      formControlName="name"
+                      autocomplete="off"
+                    >
                     </ion-input>
                   </ion-item>
                 </ion-col>
-                <ion-col size="2" class="d-flex align-items-center justify-content-end">
+                <ion-col
+                  size="1" style="padding-left: 1%;"
+                  class="d-flex align-items-center justify-content-start"
+                >
                   <p class="InputNameText">Phone</p>
-                </ion-col>
-                <ion-col size="4" class="d-flex align-items-center">
-                  <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control InputText" type="text" name="phone" [value]="phoneNumber" readonly>
-                    </ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-
-              <ion-row style="margin: 2% 0%; height: 20%;">
-                <ion-col size="1" class="d-flex align-items-center">
-                  <p class="InputNameText">
-                    Birthday</p>
-                </ion-col>
-                <ion-col size="3" class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                  <div class="col-md-10 DropDownContainer">
-                    <div class="dropdown fs-dropdown birthday-dropdown month-dropdown disabled" style="height: 100%">
-                      <a class="fs-dropdown-toggle ng-isolate-scope" open-class="fs-dropdown-open"
-                        ng-disabled="memberInfo.web_registered" fs-track-tap="Birth_Month" disabled="disabled"
-                        style="height: 100%;">
-                        <div class="selected-option" style="height: 100%;">
-                          <ion-select class="form-control d-flex" placeholder="Select a Month"
-                            (ionChange)="onMonthChange()" style="height: 100%; background-color: #f4f5f5; font-weight: 500; color: #203139; 
-                            font-family: Satoshi Variable, 'Source Sans Pro'; border: none;" formControlName="monthID">
-                            <ion-select-option *ngFor="let month of monthlist" [value]="month">{{ month
-                              }}</ion-select-option>
-                          </ion-select>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </ion-col>
-
-                <ion-col size="2" class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                  <div class="col-md-10 DropDownContainer">
-                    <div class="dropdown fs-dropdown birthday-dropdown day-dropdown disabled" style="height: 100%;">
-                      <a class="fs-dropdown-toggle ng-isolate-scope" open-class="fs-dropdown-open"
-                        ng-disabled="memberInfo.web_registered" fs-track-tap="Birth_Day" disabled="disabled"
-                        style="height: 100%;">
-                        <div class="selected-option" style="height: 100%;">
-                          <ion-select class="form-control d-flex" placeholder="Select a Day" style="height: 100%; background-color: #f4f5f5;
-                            font-weight: 500; color: #203139; border: none;" formControlName="dayID">
-                            <ion-select-option *ngFor="let day of days" [value]="day" [disabled]="!isMonthSelect">{{ day
-                              }}</ion-select-option>
-                          </ion-select>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </ion-col>
-
-                <ion-col size="2" class="d-flex justify-content-end align-items-center">
-                  <ion-label class="InputNameText">High Roller?</ion-label>
-                </ion-col>
-                <ion-col size="3" class="d-flex align-items-center">
-                  <ion-item lines="none">
-                    <ion-checkbox labelPlacement="start" name="highroller" formControlName="highroller"></ion-checkbox>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-
-              <ion-row style="margin: 2% 0%; height: 20%;">
-                <ion-col size="1" class="d-flex align-items-center">
-                  <p class="InputNameText">
-                    Email</p>
                 </ion-col>
                 <ion-col size="5" class="d-flex align-items-center">
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control InputText" [class.is-invalid]="Email.invalid && Email.touched"
-                      type="email" formControlName="email" autocomplete="off" placeholder="abc@xyz.com">
+                    <ion-input
+                      class="form-control InputText"
+                      type="text"
+                      name="phone"
+                      [value]="phoneNumber"
+                      readonly
+                    >
                     </ion-input>
-                  </ion-item>
-                </ion-col>
-                <ion-col *ngIf="isAgeRestriction" size="2" class="d-flex justify-content-end align-items-center">
-                  <ion-label class="InputNameText">Age Above 21?</ion-label>
-                </ion-col>
-                <ion-col *ngIf="isAgeRestriction" size="3" class="d-flex align-items-center">
-                  <ion-item lines="none">
-                    <ion-checkbox labelPlacement="start" name="isOverAged" formControlName="isOverAged"></ion-checkbox>
                   </ion-item>
                 </ion-col>
               </ion-row>
 
-              <ion-row style=" height: 20%;">
+              <ion-row style="margin: 2% 0%; height: 20%">
+                <ion-col size="1" class="d-flex align-items-center">
+                  <p class="InputNameText">Birthday</p>
+                </ion-col>
+                <ion-col
+                  size="3"
+                  class="d-flex justify-content-center align-items-center"
+                  style="height: 100%"
+                >
+                  <div class="col-md-10 DropDownContainer">
+                    <div
+                      class="dropdown fs-dropdown birthday-dropdown month-dropdown disabled"
+                      style="height: 100%"
+                    >
+                      <a
+                        class="fs-dropdown-toggle ng-isolate-scope"
+                        open-class="fs-dropdown-open"
+                        ng-disabled="memberInfo.web_registered"
+                        fs-track-tap="Birth_Month"
+                        disabled="disabled"
+                        style="height: 100%"
+                      >
+                        <div class="selected-option" style="height: 100%">
+                          <ion-select
+                            class="form-control d-flex"
+                            placeholder="Select a Month"
+                            (ionChange)="onMonthChange()"
+                            style="
+                              height: 100%;
+                              background-color: #f4f5f5;
+                              font-weight: 500;
+                              color: #203139;
+                              font-family: Satoshi Variable, 'Source Sans Pro';
+                              border: none;
+                            "
+                            formControlName="monthID"
+                          >
+                            <ion-select-option
+                              *ngFor="let month of monthlist"
+                              [value]="month"
+                              >{{ month }}</ion-select-option
+                            >
+                          </ion-select>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col
+                  size="2"
+                  class="d-flex justify-content-center align-items-center"
+                  style="height: 100%"
+                >
+                  <div class="col-md-10 DropDownContainer">
+                    <div
+                      class="dropdown fs-dropdown birthday-dropdown day-dropdown disabled"
+                      style="height: 100%"
+                    >
+                      <a
+                        class="fs-dropdown-toggle ng-isolate-scope"
+                        open-class="fs-dropdown-open"
+                        ng-disabled="memberInfo.web_registered"
+                        fs-track-tap="Birth_Day"
+                        disabled="disabled"
+                        style="height: 100%"
+                      >
+                        <div class="selected-option" style="height: 100%">
+                          <ion-select
+                            class="form-control d-flex"
+                            placeholder="Select a Day"
+                            style="
+                              height: 100%;
+                              background-color: #f4f5f5;
+                              font-weight: 500;
+                              color: #203139;
+                              border: none;
+                            "
+                            formControlName="dayID"
+                          >
+                            <ion-select-option
+                              *ngFor="let day of days"
+                              [value]="day"
+                              [disabled]="!isMonthSelect"
+                              >{{ day }}</ion-select-option
+                            >
+                          </ion-select>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col size="1" class="d-flex align-items-center" style="padding-left: 1%;">
+                  <p class="InputNameText">Email</p>
+                </ion-col>
+                <ion-col size="5" class="d-flex align-items-center">
+                  <ion-item lines="none" style="width: 100%">
+                    <ion-input
+                      class="form-control InputText"
+                      [class.is-invalid]="Email.invalid && Email.touched"
+                      type="email"
+                      formControlName="email"
+                      autocomplete="off"
+                      placeholder="abc@xyz.com"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+                
+              </ion-row>
+
+              <ion-row style="margin: 2% 0%; height: 20%">
                 <ion-col size="1" class="d-flex align-items-center">
                   <p class="InputNameText">Notes</p>
                 </ion-col>
                 <ion-col size="5" class="d-flex align-items-center">
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control InputText" type="text" name="notes" formControlName="note"
-                      autocomplete="off">
+                    <ion-input
+                      class="form-control InputText"
+                      type="text"
+                      name="notes"
+                      formControlName="note"
+                      autocomplete="off"
+                    >
                     </ion-input>
                   </ion-item>
+                </ion-col>
 
+                <ion-col
+                  size="6" style="padding-left: 1%;"
+                  class="d-flex align-items-center justify-content-start"
+                  *ngIf="positiveFlagRequired"
+                >
+                  <ion-label class="InputNameText" style="font-weight: 500"
+                    >{{positiveFlagName}}</ion-label
+                  >
+                  <ion-item lines="none" style="margin-right: 5%;">
+                    <ion-checkbox
+                      labelPlacement="start"
+                      name="highroller"
+                      formControlName="highroller"
+                      (ionChange)="handleHighRollerChange($event)"
+                    ></ion-checkbox>
+                  </ion-item>
+                  <ion-label class="InputNameText" style="font-weight: 500"
+                    >{{negativeFlagName}}</ion-label
+                  >
+                  <ion-item lines="none">
+                    <ion-checkbox
+                      labelPlacement="start"
+                      name="freePlayer"
+                      formControlName="freePlayer"
+                      (ionChange)="handleFreePlayerChange($event)"
+                    ></ion-checkbox>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row style="height: 20%">
+                <ion-col
+                  *ngIf="isAgeRestriction"
+                  size="6"
+                  class="d-flex justify-content-start align-items-center"
+                >
+                  <ion-label class="InputNameText">Age Above 21?</ion-label>
+                  <ion-item lines="none">
+                    <ion-checkbox
+                      labelPlacement="start"
+                      name="isOverAged"
+                      formControlName="isOverAged"
+                    ></ion-checkbox>
+                  </ion-item>
                 </ion-col>
               </ion-row>
             </div>
@@ -174,10 +303,16 @@
 
     <ion-row class="BtnRow">
       <ion-col size="3" *ngIf="step == 1">
-        <div style="height: 80%; margin: 2% 15% 0% 0%;">
-          <ion-row class="d-flex justify-content-end" style="height: 100%; width: 100%;">
+        <div style="height: 80%; margin: 2% 15% 0% 0%">
+          <ion-row
+            class="d-flex justify-content-end"
+            style="height: 100%; width: 100%"
+          >
             <div class="BtnDiv" (click)="openGuestPopup()" *ngIf="step == 1">
-              <img style="width: 18%; margin-right: 5%;" src="./assets/guestUser.png" />
+              <img
+                style="width: 18%; margin-right: 5%"
+                src="./assets/guestUser.png"
+              />
               <p class="BtnText mr-0">Add Guest</p>
             </div>
           </ion-row>
@@ -186,11 +321,14 @@
       <ion-col size="7" *ngIf="step == 1"></ion-col>
       <ion-col *ngIf="step == 2" size="10"></ion-col>
       <ion-col size="2">
-        <div style="height: 80%; margin: 2% 15% 0% 0%;">
-          <ion-row class="d-flex justify-content-end" style="height: 100%; width: 100%;">
+        <div style="height: 80%; margin: 2% 15% 0% 0%">
+          <ion-row
+            class="d-flex justify-content-end"
+            style="height: 100%; width: 100%"
+          >
             <div class="BtnDiv" (click)="next()" *ngIf="step == 1">
               <p class="BtnText">Continue</p>
-              <img style="width: 20%;" src="./assets/arrowright.png" />
+              <img style="width: 20%" src="./assets/arrowright.png" />
             </div>
             <div class="BtnDiv" (click)="openPopup()" *ngIf="step == 2">
               <p class="BtnText">Sign In</p>
@@ -202,8 +340,13 @@
     </ion-row>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document" style="height: 100%;">
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}"
+  >
+    <div class="modal-dialog" role="document" style="height: 100%">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Do you want to Add this New Member?</h5>
@@ -212,19 +355,39 @@
           <p class="bodyModalText">* Click Yes to Sign in New Member.</p>
           <p class="bodyModalText">* Click No to Cancel.</p>
         </div>
-        <div class="modal-footer d-flex justify-content-center" style="height: 25%; padding: 1%;">
-          <button type="button" class="btn btn-primary BtnModalText" (click)="submit()"
-            style="background-color: #2ac95d;">
-            Yes</button>
-          <button type="button" class="btn btn-secondary BtnModalText" data-dismiss="modal" (click)="closePopup()"
-            style="background-color: #657176;">No</button>
+        <div
+          class="modal-footer d-flex justify-content-center"
+          style="height: 25%; padding: 1%"
+        >
+          <button
+            type="button"
+            class="btn btn-primary BtnModalText"
+            (click)="submit()"
+            style="background-color: #2ac95d"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary BtnModalText"
+            data-dismiss="modal"
+            (click)="closePopup()"
+            style="background-color: #657176"
+          >
+            No
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyleForGuest}">
-    <div class="modal-dialog" role="document" style="height: 100%;">
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyleForGuest}"
+  >
+    <div class="modal-dialog" role="document" style="height: 100%">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Do you want to Add Member as a Guest?</h5>
@@ -233,12 +396,27 @@
           <p class="bodyModalText">* Click Yes to Sign in Guest Member.</p>
           <p class="bodyModalText">* Click No to Cancel.</p>
         </div>
-        <div class="modal-footer d-flex justify-content-center" style="height: 25%; padding: 1%;">
-          <button type="button" class="btn btn-primary BtnModalText" (click)="signInGuest()"
-            style="background-color: #2ac95d;">
-            Yes</button>
-          <button type="button" class="btn btn-secondary BtnModalText" data-dismiss="modal" (click)="closeGuestPopup()"
-            style="background-color: #657176;">No</button>
+        <div
+          class="modal-footer d-flex justify-content-center"
+          style="height: 25%; padding: 1%"
+        >
+          <button
+            type="button"
+            class="btn btn-primary BtnModalText"
+            (click)="signInGuest()"
+            style="background-color: #2ac95d"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary BtnModalText"
+            data-dismiss="modal"
+            (click)="closeGuestPopup()"
+            style="background-color: #657176"
+          >
+            No
+          </button>
         </div>
       </div>
     </div>

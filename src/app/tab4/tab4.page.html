@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <div class="customer-details-screen--sPF" *ngIf="!isLoading">
     <div class="MemberProfileContainer">
-      <ion-row style="width: 100%; padding: 1% 0%;">
+      <ion-row style="width: 100%; padding: 1% 0%">
         <div class="MemberProfileContainerHeader">
           <ion-col size="1" class="d-flex justify-content-center">
             <div class="backDiv" (click)="GetBack()">
@@ -23,47 +23,72 @@
         </div>
       </ion-row>
 
-
       <ion-row class="MemberProfileFormContainer">
         <div class="MemberProfileFormCard">
           <form [formGroup]="memberDetails">
             <ion-list formGroupName="addMemberDetails">
-              <ion-row style="margin-bottom: 1%;">
+              <ion-row style="margin-bottom: 1%">
                 <ion-col size="4">
                   <p class="inputTitleText">
-                    Member Since {{member.memberSince | date:'MMM YYYY'}}</p>
+                    Member Since {{member.memberSince | date:'MMM dd, YYYY'}}
+                  </p>
                 </ion-col>
                 <ion-col size="4">
                   <p class="inputTitleText text-center">
-                    {{member.currentPoints}} Current Point</p>
+                    {{member.currentPoints}} Current Point
+                  </p>
                 </ion-col>
                 <ion-col size="4">
-                  <p class="inputTitleText text-end"
-                    style="margin-right: 5%;">
-                    {{member.totalPoints}} Lifetime Point</p>
+                  <p class="inputTitleText text-end" style="margin-right: 5%">
+                    {{member.totalPoints}} Lifetime Point
+                  </p>
                 </ion-col>
               </ion-row>
 
-              <div style="height: 2px; background-color: #dadbdc; margin: 0% 0% 0% -1%;"> </div>
+              <div
+                style="
+                  height: 2px;
+                  background-color: #dadbdc;
+                  margin: 0% 0% 0% -1%;
+                "
+              ></div>
 
               <ion-row class="formRow">
                 <ion-col size="1" class="d-flex align-items-center">
-                  <p class="inputTitleText" style="font-weight: 500;">
-                    Name</p>
+                  <p class="inputTitleText" style="font-weight: 500">Name</p>
                 </ion-col>
-                <ion-col size="5" class="d-flex align-items-center justify-content-center">
+                <ion-col
+                  size="5"
+                  class="d-flex align-items-center justify-content-center"
+                >
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control formInput" type="text" formControlName="name">
+                    <ion-input
+                      class="form-control formInput"
+                      type="text"
+                      formControlName="name"
+                    >
                     </ion-input>
                   </ion-item>
                 </ion-col>
-                <ion-col size="2" class="d-flex align-items-center justify-content-center">
-                  <p class="inputTitleText" style="font-weight: 500;">
-                    Birthday</p>
+                <ion-col
+                  size="1"
+                  class="d-flex align-items-center justify-content-start"
+                >
+                  <p class="inputTitleText" style="font-weight: 500">
+                    Birthday
+                  </p>
                 </ion-col>
-                <ion-col size="4" class="d-flex align-items-center justify-content-center">
+                <ion-col
+                  size="5"
+                  class="d-flex align-items-center justify-content-center"
+                >
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control formInput" type="text" value="{{member.birthDate | date:'dd MMM'}}" readonly>
+                    <ion-input
+                      class="form-control formInput"
+                      type="text"
+                      value="{{member.birthDate | date:'dd MMM'}}"
+                      readonly
+                    >
                     </ion-input>
                   </ion-item>
                 </ion-col>
@@ -71,51 +96,131 @@
 
               <ion-row class="formRow">
                 <ion-col size="1" class="d-flex align-items-center">
-                  <p class="inputTitleText" style="font-weight: 500;">
-                    Email</p>
+                  <p class="inputTitleText" style="font-weight: 500">Email</p>
                 </ion-col>
                 <ion-col size="5" class="d-flex align-items-center">
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control formInput" type="email" formControlName="email" [class.is-invalid]="Email.invalid && Email.touched">
+                    <ion-input
+                      class="form-control formInput"
+                      type="email"
+                      formControlName="email"
+                      [class.is-invalid]="Email.invalid && Email.touched"
+                    >
                     </ion-input>
                   </ion-item>
                 </ion-col>
-                <ion-col size="2" class="d-flex align-items-center justify-content-center">
-                  <ion-label class="inputTitleText" style="font-weight: 500;">High Roller?</ion-label>
-                </ion-col>
-                <ion-col size="4" class="d-flex align-items-center">
+                <ion-col
+                  size="6"
+                  class="d-flex align-items-center justify-content-start"
+                  *ngIf="positiveFlagRequired"
+                >
+                  <ion-label class="inputTitleText" style="font-weight: 500"
+                    >{{positiveFlagName}}</ion-label
+                  >
+                  <ion-item lines="none" style="margin-right: 5%">
+                    <ion-checkbox
+                      labelPlacement="start"
+                      [checked]="highroller"
+                      formControlName="highroller"
+                      (ionChange)="handleHighRollerChange($event)"
+                    ></ion-checkbox>
+                  </ion-item>
+                  <ion-label class="inputTitleText" style="font-weight: 500"
+                    >{{negativeFlagName}}</ion-label
+                  >
                   <ion-item lines="none">
-                    <ion-checkbox labelPlacement="start" [checked]="highroller" formControlName="highroller"></ion-checkbox>
+                    <ion-checkbox
+                      labelPlacement="start"
+                      [checked]="freePlayer"
+                      formControlName="freePlayer"
+                      (ionChange)="handleFreePlayerChange($event)"
+                    ></ion-checkbox>
                   </ion-item>
                 </ion-col>
               </ion-row>
 
-              <ion-row style="height: 20%;">
+              <ion-row style="height: 20%">
                 <ion-col size="1" class="d-flex align-items-center">
-                  <p class="inputTitleText" style="font-weight: 500;">Notes</p>
+                  <p class="inputTitleText" style="font-weight: 500">Notes</p>
                 </ion-col>
                 <ion-col size="5" class="d-flex align-items-center">
                   <ion-item lines="none" style="width: 100%">
-                    <ion-input class="form-control formInput" type="text" formControlName="notes">
+                    <ion-input
+                      class="form-control formInput"
+                      type="text"
+                      formControlName="notes"
+                    >
                     </ion-input>
                   </ion-item>
                 </ion-col>
                 <ion-col size="6" class="d-flex align-items-center">
-                  <ion-item lines="none" style="width: 100%">
-                    <div style="background-color: #203139; border-radius: 50%; padding: 3%; margin: 0% 80% 0% 6%;"
-                      (click)="openPopup()">
-                      <img style="width: 100%;" src="./assets/history-P2y.png" />
+                  <!-- <ion-item lines="none" style="width: 100%">
+                    <div
+                      style="
+                        background-color: #203139;
+                        border-radius: 50%;
+                        padding: 3%;
+                        margin: 0% 80% 0% 6%;
+                      "
+                      (click)="openPopup()"
+                    >
+                      <img style="width: 100%" src="./assets/history-P2y.png" />
                     </div>
-                  </ion-item>
+                  </ion-item> -->
                 </ion-col>
               </ion-row>
 
-              <ion-row style="height: 20%;">
-                <ion-col size="9"></ion-col>
-                <ion-col size="3" class="d-flex align-items-center justify-content-end" style=" width: 100%;">
+              <ion-row style="height: 20%">
+                <ion-col size="1"></ion-col>
+                <ion-col size="5">
+                  <ion-item lines="none" style="width: 100%">
+                    <!-- <ion-input
+                      class="form-control formInput"
+                      type="text"
+                      formControlName="notes"
+                    >
+                    </ion-input> -->
+                    <ion-textarea
+                      class="form-control formInput"
+                      [readonly]="true"
+                      label="Readonly textarea"
+                      value="{{oldNote}}"
+                      style="
+                        height: 100% !important;
+                        border-radius: 1rem !important;
+                        padding-left: 2% !important;
+                        color: #3b3b3b !important;
+                        background: lightgray !important;
+                      "
+                    >
+                    </ion-textarea>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="3">
+                  <ion-item lines="none" style="width: 35%">
+                    <div
+                      style="
+                        background-color: #203139;
+                        border-radius: 50%;
+                        padding: 20%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                      "
+                      (click)="openPopup()"
+                    >
+                      <img src="./assets/history-P2y.png" />
+                    </div>
+                  </ion-item>
+                </ion-col>
+                <ion-col
+                  size="3"
+                  class="d-flex align-items-center justify-content-end"
+                  style="width: 100%"
+                >
                   <div class="SaveDiv" (click)="SaveProfile()">
                     <p class="SaveText">Save Profile</p>
-                    <img width="10%" src="../../assets/checkcircle.png">
+                    <img width="10%" src="../../assets/checkcircle.png" />
                   </div>
                 </ion-col>
               </ion-row>
@@ -123,29 +228,47 @@
           </form>
         </div>
 
-        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-          <div role="document" style="height: 100%;">
+        <div
+          class="modal"
+          tabindex="-1"
+          role="dialog"
+          [ngStyle]="{'display':displayStyle}"
+        >
+          <div role="document" style="height: 100%">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Notes History</h5>
-                <button type="button" class="close" aria-label="Close" (click)="closePopup()">
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="closePopup()"
+                >
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div class="modal-body">
-                <ion-grid style="margin-bottom: 1%;">
+                <ion-grid style="margin-bottom: 1%">
                   <ion-row>
                     <ion-col class="table-col">Date</ion-col>
-                    <ion-col class="table-col">Is HighRoller?</ion-col>
                     <ion-col class="table-col">Notes</ion-col>
+                    <ion-col class="table-col">Modified By</ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid style="height: 80%; overflow-y: scroll;">
+                <ion-grid
+                  style="height: 80%; overflow-y: scroll; font-size: 90%"
+                >
                   <ion-row class="rows" *ngFor="let note of notesHistory">
-                    <ion-col class="table-col">{{note.lastModifiedDate | date: 'dd/MM/YYYY hh:mm a'}}</ion-col>
-                    <ion-col class="table-col">{{note.highRoller ? 'Yes' : 'No'}}</ion-col>
+                    <ion-col class="table-col"
+                      >{{note.lastModifiedDate | date: 'MMM dd, YYYY hh:mm
+                      a'}}</ion-col
+                    >
                     <ion-col class="table-col">{{note.notes}}</ion-col>
+                    <ion-col class="table-col"
+                      >{{note.modifiedBySource}}</ion-col
+                    >
                   </ion-row>
+                  <p *ngIf="notesHistory?.length == 0" style="color: #6f6f6f">No Records Available!</p>
                 </ion-grid>
               </div>
             </div>

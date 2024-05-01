@@ -1,9 +1,10 @@
 import { Component, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GetUserProfileService } from '../api/service/get-user-profile.service';
-import { ToastController } from '@ionic/angular';
+import { IonModal, ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as CONSTANTS from '../api/service/Constants';
+import { MemberProfileService } from '../api/service/memberProfileService';
 
 @Component({
   selector: 'app-tab6',
@@ -32,6 +33,7 @@ export class Tab6Page {
   membername: any;
   email: any;
   highroller: boolean = false;
+  freePlayer: boolean = false;
   memberSince: any;
   currentPoints: any;
   totalPoints: any;
@@ -41,36 +43,98 @@ export class Tab6Page {
       name: new FormControl(''),
       email: new FormControl('', Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")),
       highroller: new FormControl(''),
+      freePlayer: new FormControl(''),
       notes: new FormControl('')
     })
   });
   isSaveLoading = false;
+  positiveFlagRequired: any = false;
+  positiveFlagName: any;
+  negativeFlagName: any;
+  businessGroupId: any;
+  oldNote: any;
+  notesHistory: any;
 
   constructor(public activatedRoute: ActivatedRoute, private router: Router, private userProfile: GetUserProfileService,
-    private toastCtrl: ToastController) {
-
+    private toastCtrl: ToastController, private memberProfileService: MemberProfileService) {
+      this.businessGroupId = localStorage.getItem('businessGroupId');
+      this.userProfile
+      .GetBusinessGroupByID(this.businessGroupId)
+      .subscribe((data: any) => {
+        this.positiveFlagRequired = data.positiveFlagRequired;
+        this.positiveFlagName = data.positiveFlagName;
+        this.negativeFlagName = data.negativeFlagName;
+      });
     this.HistoryFormGroup = new FormGroup({
       activity: new FormControl('All Activity'),
       toggleBtn: new FormControl(3),
       searchvalue: new FormControl('')
     })
   }
+  @ViewChild(IonModal) modal1: IonModal;
+
+  displayStyle1 = 'none';
 
   displayStyle = "none";
-  // opacityStyle = 1;
   displayStyleForHistory = "block";
 
   ionViewWillEnter() {
     this.ngOnInit();
   }
 
-  async ngOnInit() {
-
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1500);    
+  async ngOnInit() {  
     await this.GetHistoryData();
+  }
+
+  openPopupNoteHistory() {
+    this.GetMemberNoteHistory();
+    this.displayStyle1 = 'block';
+    this.displayStyle = 'none';
+  }
+  closePopupNoteHistory() {
+    this.displayStyle1 = 'none';
+    this.displayStyle = 'block';
+  }
+
+  async GetMemberNoteHistory() {
+    this.notesHistory = [];
+    await this.memberProfileService
+      .GetMemberNoteHistoryByMemberId(this.memberID)
+      .subscribe(
+        (data: any) => {
+          this.notesHistory = data;
+          this.notesHistory.forEach((element) => {
+            element.lastModifiedDate = CONSTANTS.convertISODateToLocal(
+              element.lastModifiedDate
+            );
+          });
+        },
+        async (error) => {
+          if (error.status != 404) {
+            const toast = await this.toastCtrl.create({
+              message: 'Something went wrong, Try after some time!',
+              duration: 5000,
+              cssClass: 'custom-toast',
+            });
+            toast.present();
+          }
+        }
+      );
+  }
+  handleHighRollerChange(event) {
+    if (event.detail.checked) {
+      // If High Roller is checked, uncheck Free Player
+      this.freePlayer = false;
+      this.memberDetails.controls['addMemberDetails'].controls['freePlayer'].setValue('false');
+    }
+  }
+
+  handleFreePlayerChange(event) {
+    if (event.detail.checked) {
+      // If Free Player is checked, uncheck High Roller
+      this.highroller = false;
+      this.memberDetails.controls['addMemberDetails'].controls['highroller'].setValue('false');
+    }
   }
 
   formatPhoneNumber(number) {
@@ -201,7 +265,6 @@ export class Tab6Page {
   closePopup() {
     this.displayStyle = "none";
     this.displayStyleForHistory = "block";
-    // this.opacityStyle = 1;
   }
 
   get Email() {
@@ -221,23 +284,23 @@ export class Tab6Page {
       });
       toast.present();
     } else {
-      this.userProfile.GetMemberProfileByProfileID(memberHistory.memberId).subscribe((response: any) => {
+      this.memberProfileService.GetMemberProfileByProfileID(memberHistory.memberId).subscribe((response: any) => {
         this.memberData = response;
-
         this.memberID = memberHistory.memberId;
         this.phoneNo = this.formatPhoneNumber(memberHistory.phone);
         this.memberSince = this.memberData[0].membersince;
         this.currentPoints = this.memberData[0].currentpoints;
         this.totalPoints = this.memberData[0].lifetimepoints;
-        this.birthDate = this.memberData[0].birthDay != null ? this.memberData[0].birthDay + '' + this.memberData[0].birthMonth : '';
+        this.birthDate = this.memberData[0].birthDay != null ? this.memberData[0].birthDay + ' ' + this.memberData[0].birthMonth : '';
         this.memberDetails.controls['addMemberDetails'].controls['name'].setValue(this.memberData[0].name);
         this.memberDetails.controls['addMemberDetails'].controls['email'].setValue(this.memberData[0].emailId);
         this.memberDetails.controls['addMemberDetails'].controls['highroller'].setValue(this.memberData[0].isHighroller);
-        this.memberDetails.controls['addMemberDetails'].controls['notes'].setValue(this.memberData[0].notes);
+        this.memberDetails.controls['addMemberDetails'].controls['freePlayer'].setValue(this.memberData[0].isFreePlayer);
+        this.memberDetails.controls['addMemberDetails'].controls['notes'].setValue('');
+        this.oldNote = this.memberData[0].notes;
 
         this.displayStyle = "block";
         this.displayStyleForHistory = "none";
-        // this.opacityStyle = 0.1;
       });
     }
   }
@@ -245,20 +308,23 @@ export class Tab6Page {
   async SaveProfile() {
     if (this.Email.valid) {
       this.isSaveLoading = true;
-
+      let UserId = Number(localStorage.getItem('userId'));
       let currentDate = CONSTANTS.ISODate();
       let data = {
         "memberId": this.memberID,
-        "notes": this.AddMemberDetails.notes.value,
+        "notes": (this.AddMemberDetails.notes.value == '' ||
+        this.AddMemberDetails.notes.value == null ||
+        this.AddMemberDetails.notes.value == undefined) ? this.memberData[0].notes : this.AddMemberDetails.notes.value,
         "isHighroller": this.AddMemberDetails.highroller.value,
+        "isFreePlayer": this.AddMemberDetails.freePlayer.value,
         "memberName": this.AddMemberDetails.name.value,
         "emailID": this.AddMemberDetails.email.value == '' ? null : this.AddMemberDetails.email.value,
-        "lastModifiedBy": this.businessLocationId,
+        "lastModifiedBy": UserId,
         "lastModifiedDate": currentDate
       }
 
       setTimeout(() => {
-        this.userProfile.PutMemberProfileNoteInStore(data).subscribe(async (res: any) => {
+        this.memberProfileService.PutMemberProfileNoteInStore(data).subscribe(async (res: any) => {
           const toast = await this.toastCtrl.create({
             message: "Saved Successfully",
             duration: 1500,

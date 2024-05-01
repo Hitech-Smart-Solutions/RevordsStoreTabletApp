@@ -24,6 +24,8 @@ export class Tab1Page {
   signUp() {
     this.showLoginForm = true;
     this.isLoadingMember = true;
+
+    //Get Business Location Data by Email and Password
     this.userProfile.Users(this.Email, this.Password).subscribe((data: any) => {
       this.userData = data;
       if (this.userData != '' && this.userData != null && this.userData != undefined) {
@@ -54,20 +56,18 @@ export class Tab1Page {
       localStorage.setItem('userId', String(this.user.userId));
       localStorage.setItem('businessLocationId', String(this.user.businessLocationId));
       localStorage.setItem('userName', String(this.user.userName));
+      localStorage.setItem('pwd', String(this.user.password));
       localStorage.setItem('businessGroupName', String(this.user.businessGroupName));
       localStorage.setItem('businessGroupId', String(this.user.businessGroupId));
       localStorage.setItem('businessGroupImage', String(this.user.businessGroupImage));
       localStorage.setItem('sourceId', String(this.user.sourceId));
       localStorage.setItem('sourceName', String(this.user.sourceName));
-
       localStorage.setItem('token', this.userData);
-
       this.isLoadingMember = false;
       this.router.navigate(['tab2']);
       this.showLoginForm = false;
     },
       async (error) => {
-        // console.log(error)
         if (error.status == 404) {
           const toast = await this.toastCtrl.create({
             message: "Enter valid credential!!",

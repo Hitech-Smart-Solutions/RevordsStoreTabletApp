@@ -1,9 +1,3 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <app-header></app-header>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
   <div class="customer-details-screen--sPF" *ngIf="!isLoading">
     <div class="RewardRedeemContainer">
@@ -11,10 +5,6 @@
 
         <ion-row style="height: 15%;">
           <ion-col size="1" class="d-flex align-items-center" style="height: 100%;">
-            <!-- <div class="previous d-flex align-items-center justify-content-center" (click)="previous()">
-              <img src="./assets/arrowright-CMF.png"
-                class="previousImg d-flex align-items-center justify-content-center" height="40%" />
-            </div> -->
             <img src="../../assets/cancel.png" (click)="previous()" />
           </ion-col>
           <ion-col size="1" class="d-flex align-items-center justify-content-center" style="height: 100%;"
@@ -28,8 +18,7 @@
           </ion-col>
           <ion-col size="3" class="memberNameCol">
             <p class="memberNameText"><span (click)="GotoProfile()">{{member.memberName}}</span></p>
-            <p class="memberSinceText"><span (click)="GotoProfile()">Member since {{member.memberSince | date:'dd MMM
-                YYYY'}}</span></p>
+            <p class="memberSinceText"><span (click)="GotoProfile()">Member since {{member.memberSince | date:'MMM dd, YYYY'}}</span></p>
           </ion-col>
           <ion-col size="4" class="d-flex align-items-center" style="height: 100%;">
             <div class="tagNameText">{{member.tagName}}</div>
@@ -39,9 +28,13 @@
               <p class="highroller"
                 style="font-weight: 700; color: #203139; font-family: Satoshi Variable, 'Source Sans Pro'; font-size: 90%;"
                 *ngIf="member.isHighroller">
-                <!-- <img src="../../assets/highrollar.png" /> -->
-                <span style="color: red;">$$$</span>
+                <span style="color: rgb(0 179 54)">$$$</span>
               </p>
+              <p class="highroller"
+                style="font-weight: 700; color: #203139; font-family: Satoshi Variable, 'Source Sans Pro'; font-size: 90%;"
+                *ngIf="member.isFreePlayer">
+                <span style="color: rgb(255, 0, 0);">$$$</span>
+              </p>              
             </div>
           </ion-col>
           <ion-col size="2" class="currentPointsCol">
@@ -56,26 +49,10 @@
         </ion-row>
 
         <ion-row class="d-flex justify-content-center" style="height: 10%;">
-          <!-- <p class="titleText" *ngIf="step == 2">Add Points</p> -->
           <p class="titleText" *ngIf="step == 2">Visit Summary</p>
         </ion-row>
 
         <ion-row class="stepper" *ngIf="step == 1" formGroupName="promotionDetails" [hidden]="isHideRewards">
-
-          <div class="row" *ngIf="showBeforeSpinWheelData == true">
-            <div class="col-md-12">
-              <div class="rewardCard">
-                <div class="rewardCardLeft" style="background-color: #6a5471;">Spin Wheel</div>
-                <div class="rewardCardRight">
-                  <ion-item lines="none" style="width: 95%;">
-                    <ion-label class="rewardCardMsg" style="color: #176c00;">Loading Spinwheel Data....</ion-label>
-                    <ion-checkbox class="checkbox" justify="space-between" style="margin-right: 4%; height: 100%;">
-                    </ion-checkbox>
-                  </ion-item>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div class="row" *ngIf="showSpinWheelData == true">
             <div class="col-md-12">
@@ -168,8 +145,7 @@
             </div>
           </div>
 
-          <div *ngIf="showPromotionData == false && showAutopilotData == false && showRewardData == false && showSpinWheelData == false
-            && showBeforeSpinWheelData == false"
+          <div *ngIf="showPromotionData == false && showAutopilotData == false && showRewardData == false && showSpinWheelData == false"
             style="height: 100%; display: flex; justify-content: center; align-items: center;">
             <h2 style="opacity: 0.6; font-size: 130%; font-weight: 700; color: #203139;
             font-family: Satoshi Variable, 'Source Sans Pro';">Have a Nice day..!!</h2>

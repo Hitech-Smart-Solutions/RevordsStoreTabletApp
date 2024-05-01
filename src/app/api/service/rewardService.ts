@@ -15,4 +15,8 @@ export class RewardService {
         return member;
       }));
   }
+
+  GetRewardByMemberId(BusinessGroupId: any, MemberId: any) {
+    return this.http.get(CONSTANTS.API_ENDPOINT + `RewardConfigs/GetRewardForReedimtionBusinesswiseMemberwise/${BusinessGroupId}/${MemberId}`);
+  }
 }

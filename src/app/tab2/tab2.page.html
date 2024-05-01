@@ -1,181 +1,298 @@
-<!-- <ion-header>
-    <ion-toolbar>
-        <app-header></app-header>
-    </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
-    <div class="customer-details-screen--sPF" *ngIf="!isLoading">
-        <div class="homeContainer">
-            <div class="home">
-                <ion-row class="memberCardRow"
-                    *ngIf="signinMemberData != undefined && signinMemberData != null && signinMemberData!= ' ' && signinMemberData.length > 0">
-                    <ion-col size="3" *ngFor="let h of signinMemberData;" class="memberCardCol">
-                        <ion-card class="memberCard" (click)='GetMemberDetail(h)'>
-                            <div style="margin: 0% 7% 0% 7%;">
-                                <ion-row>
-                                    <ion-col size="6" style="padding-left: 0% !important;">
-                                        <div style="margin: 10% 0% 0% 0%; width: 60px; height: 60px;">
-                                            <!-- <ion-row>
-                                                <ion-col size="6"> -->
-                                            <div style="width: 60px;height: 60px;">
-                                                <img *ngIf="h.imagePath" src="{{h.imagePath}}"
-                                                    style="border-radius: 50%; width: 100%; height: 100%; margin-top: -5%;" />
-                                                <img *ngIf="!h.imagePath" src="../../assets/defaultUser1.png"
-                                                    style="border-radius: 50%; width: 100%; height: 100%; margin-top: -5%;" />
-                                            </div>
-                                            <!-- </ion-col>
-                                                <ion-col size="6"></ion-col>
-                                            </ion-row> -->
-                                        </div>
-                                    </ion-col>
-                                    <ion-col size="2"
-                                        style="padding-left: 0% !important;text-align: center;font-size: 100%;font-weight: 700;color: #203139;
-                                        font-family: Satoshi Variable, 'Source Sans Pro';white-space: nowrap;flex-shrink: 0;">
-                                    </ion-col>
-                                    <ion-col size="4" style="padding-left: 0% !important;">
-                                        <div [style.background]="h.badgeColor" style="margin-left: 18%;
-                                        box-shadow: rgba(0, 0, 0, 0.16) 0px 0.2rem 0.3rem;
-                                        border-radius: 0px 0px 4.5rem 4.5rem;
-                                        background-color: rgb(205, 127, 50);
-                                        text-align: center;
-                                        padding-bottom: 10%;
-                                        display: grid;
-                                        justify-items: center;">
-                                            <img src="../assets/vector-k5f.png"
-                                                style="margin: 15% 22% 15% 22%; width: 55%;" />
-                                            <p
-                                                style="color: #fff;border: 1px solid white; border-radius: 50%; height: 25px;
-                                                width: 25px;display: flex;align-items: center;justify-content: center;">
-                                                {{h.currentPoints}}
-                                            </p>
-                                        </div>
-                                    </ion-col>
-                                </ion-row>
-                            </div>
-                            <div style="margin: 2% 7% 0% 7%;">
-                                <ion-card-title class="memberName">
-                                    <ion-col size="6">
-                                        {{h.memberName}}
-                                    </ion-col>
-                                    <ion-col size="2"></ion-col>
-                                    <ion-col size="4">
-                                        <div *ngIf='h.isHighroller == true'
-                                            style="text-align: center; margin-left: 18%;">
-                                            <span style="color: red;">$$$</span>
-                                        </div>
-                                    </ion-col>
-                                </ion-card-title>
-                                <ion-card-subtitle class="memberSince">Member since {{h.memberSince | date:
-                                    'YYYY'}}</ion-card-subtitle>
-                            </div>
-                            <ion-card-content style="margin: 0% 7% 7% 7%;">
-                                <ion-row style="display: flex;align-items: center;">
-                                    <ion-col size="6" style="padding-left: 0% !important;height: 16px;">
-                                        <div class="tagText">{{h.tagName}}</div>
-                                    </ion-col>
-                                    <ion-col size="2">
-                                    </ion-col>
-                                    <ion-col size="1">
-                                        <img src="../assets/hourglassmedium-Ecy.png" style="width: 75%;" />
-                                    </ion-col>
-                                    <ion-col size="3" class="timer">
-                                        {{h.timer}}
-                                    </ion-col>
-                                </ion-row>
-                            </ion-card-content>
-                        </ion-card>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row
-                    *ngIf="signinMemberData != undefined && signinMemberData != null && signinMemberData!= ' ' && signinMemberData.length == 0"
-                    style="width: 100%;height: 100%;">
-                    <ion-slides pager="true" style="width: 100%;height: 100%;" [options]="slideOpts">
-                        <ion-slide *ngFor='let c of checklist'>
-                            <div class="group-31-8uo">
-                                <div class="frame-31-ssP">
-                                    <img class="checkcircle-MXf" src="./assets/checkcircle.png">
-                                    <p class="check-computers-tablets-and-gadgets-UcH">{{c.checkListPoint}}</p>
-                                </div>
-                                <img class="vector-3-MAH" src="./assets/vector-3.png">
-                                <img class="vector-4-hE9" src="./assets/vector-4-TZT.png">
-                            </div>
-                        </ion-slide>
-                    </ion-slides>
-                </ion-row>
-            </div>
-
-            <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-                <div class="modal-dialog" role="document" style="height: 100%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{promoSubject}}</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p class="modal-bodyText">{{promoOccasion}}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary modal-footerBtn" data-dismiss="modal"
-                                (click)="closePopup()" style="background-color: #657176;">
-                                Close
-                            </button>
-                        </div>
+  <div class="customer-details-screen--sPF" *ngIf="!isLoading">
+    <div class="homeContainer">
+      <div class="home">
+        <ion-row
+          class="memberCardRow"
+          *ngIf="signinMemberData != undefined && signinMemberData != null && signinMemberData!= ' ' && signinMemberData.length > 0"
+        >
+          <ion-col
+            size="3"
+            *ngFor="let h of signinMemberData;"
+            class="memberCardCol"
+          >
+            <ion-card class="memberCard" (click)="GetMemberDetail(h)">
+              <div style="margin: 0% 7% 0% 7%">
+                <ion-row>
+                  <ion-col size="6" style="padding-left: 0% !important">
+                    <div
+                      style="margin: 10% 0% 0% 0%; width: 60px; height: 60px"
+                    >
+                      <div style="width: 60px; height: 60px">
+                        <img
+                          *ngIf="h.imagePath"
+                          src="{{h.imagePath}}"
+                          style="
+                            border-radius: 50%;
+                            width: 100%;
+                            height: 100%;
+                            margin-top: -5%;
+                          "
+                        />
+                        <img
+                          *ngIf="!h.imagePath"
+                          src="../../assets/defaultUser1.png"
+                          style="
+                            border-radius: 50%;
+                            width: 100%;
+                            height: 100%;
+                            margin-top: -5%;
+                          "
+                        />
+                      </div>
                     </div>
+                  </ion-col>
+                  <ion-col
+                    size="2"
+                    style="
+                      padding-left: 0% !important;
+                      text-align: center;
+                      font-size: 100%;
+                      font-weight: 700;
+                      color: #203139;
+                      font-family: Satoshi Variable, 'Source Sans Pro';
+                      white-space: nowrap;
+                      flex-shrink: 0;
+                    "
+                  >
+                  </ion-col>
+                  <ion-col size="4" style="padding-left: 0% !important">
+                    <div
+                      [style.background]="h.badgeColor"
+                      style="
+                        margin-left: 18%;
+                        box-shadow: rgba(0, 0, 0, 0.16) 0px 0.2rem 0.3rem;
+                        border-radius: 0px 0px 4.5rem 4.5rem;
+                        background-color: rgb(205, 127, 50);
+                        text-align: center;
+                        padding-bottom: 10%;
+                        display: grid;
+                        justify-items: center;
+                      "
+                    >
+                      <img
+                        src="../assets/vector-k5f.png"
+                        style="margin: 15% 22% 15% 22%; width: 55%"
+                      />
+                      <p
+                        style="
+                          color: #fff;
+                          border: 1px solid white;
+                          border-radius: 50%;
+                          height: 25px;
+                          width: 25px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        "
+                      >
+                        {{h.currentPoints}}
+                      </p>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
+              <div style="margin: 2% 7% 0% 7%">
+                <ion-card-title class="memberName">
+                  <ion-col size="6"> {{h.memberName}} </ion-col>
+                  <ion-col size="2"></ion-col>
+                  <ion-col size="4">
+                    <div
+                      *ngIf="h.isHighroller == true"
+                      style="text-align: center; margin-left: 18%"
+                    >
+                      <span style="color: rgb(0 179 54)">$$$</span>
+                    </div>
+                    <div
+                      *ngIf="h.isFreePlayer == true"
+                      style="text-align: center; margin-left: 18%"
+                    >
+                      <span style="color: rgb(255, 0, 0)">$$$</span>
+                    </div>
+                  </ion-col>
+                </ion-card-title>
+                <ion-card-subtitle class="memberSince"
+                  >Member since {{h.memberSince | date:
+                  'YYYY'}}</ion-card-subtitle
+                >
+              </div>
+              <ion-card-content style="margin: 0% 7% 7% 7%">
+                <ion-row style="display: flex; align-items: center">
+                  <ion-col
+                    size="6"
+                    style="padding-left: 0% !important; height: 16px"
+                  >
+                    <div class="tagText">{{h.tagName}}</div>
+                  </ion-col>
+                  <ion-col size="2"> </ion-col>
+                  <ion-col size="1">
+                    <img
+                      src="../assets/hourglassmedium-Ecy.png"
+                      style="width: 75%"
+                    />
+                  </ion-col>
+                  <ion-col size="3" class="timer"> {{h.timer}} </ion-col>
+                </ion-row>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row
+          *ngIf="signinMemberData != undefined && signinMemberData != null && signinMemberData!= ' ' && signinMemberData.length == 0"
+          style="width: 100%; height: 100%"
+        >
+          <ion-slides
+            pager="true"
+            style="width: 100%; height: 100%"
+            [options]="slideOpts"
+          >
+            <ion-slide *ngFor="let c of checklist">
+              <div class="group-31-8uo">
+                <div class="frame-31-ssP">
+                  <img class="checkcircle-MXf" src="./assets/checkcircle.png" />
+                  <p class="check-computers-tablets-and-gadgets-UcH">
+                    {{c.checkListPoint}}
+                  </p>
                 </div>
+                <img class="vector-3-MAH" src="./assets/vector-3.png" />
+                <img class="vector-4-hE9" src="./assets/vector-4-TZT.png" />
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </ion-row>
+      </div>
+      <ion-row style="height: 5%">
+        <ion-col size="12" style="text-align: end;">
+          <ion-icon
+            name="refresh-circle-outline"
+            style="color: #203139; font-size: 30px"
+            (click)="refreshPage()"
+          ></ion-icon>
+        </ion-col>
+      </ion-row>
+      <div
+        class="modal"
+        tabindex="-1"
+        role="dialog"
+        [ngStyle]="{'display':displayStyle}"
+      >
+        <div class="modal-dialog" role="document" style="height: 100%">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{promoSubject}}</h5>
             </div>
-
-            <ion-row class="rewardList">
-                <ion-col size="6" *ngFor='let r of rewards' class="rewardCol">
-                    <ion-card class="rewardCard">
-                        <ion-row class="rewardCardRow">
-                            <ion-col class="rewardCardLeft" size="4"
-                                style="background: linear-gradient(179.5deg, #50ed83 3.3%, #1b9b44 96%);">Reward</ion-col>
-                            <ion-col size="8" class="rewardCardRight">
-                                <ion-row class="d-flex align-items-center">
-                                    <ion-col class="rewardNameText" size="12">{{r.rewardName}}</ion-col>
-                                </ion-row>
-                            </ion-col>
-                        </ion-row>
-                    </ion-card>
-                </ion-col>
-
-                <ion-col size="12" *ngFor='let p of promotions' class="rewardCol">
-                    <ion-card class="rewardCard">
-                        <ion-row class="rewardCardRow">
-                            <ion-col size="2" class="rewardCardLeft"
-                                style="background: linear-gradient(179.5deg, #f5c986 3.3%, #bd8633 96%);">Promotion</ion-col>
-                            <ion-col size="10" class="rewardCardRight" (click)="openPopup(p)">
-                                <ion-row class="d-flex align-items-center">
-                                    <ion-col size="12" class="rewardNameText">{{p.promotionalMessage}}</ion-col>
-                                    <ion-col *ngIf="p.expiryDays > 1" size="12" class="rewardExpiryText">Expires in
-                                        {{p.expiryDays}}
-                                        day</ion-col>
-                                    <ion-col *ngIf="p.expiryDays == 1" size="12" class="rewardExpiryText">Expiring
-                                        today</ion-col>
-                                </ion-row>
-                            </ion-col>
-                        </ion-row>
-                    </ion-card>
-                </ion-col>
-
-                <ion-col size="12" *ngFor='let a of announcements' class="rewardCol">
-                    <ion-card class="rewardCard">
-                        <ion-row class="rewardCardRow">
-                            <ion-col size="2" class="rewardCardLeft"
-                                style="background: linear-gradient(179.5deg, #9f7edb 3.3%, #53289f 96%);">Announcement</ion-col>
-                            <ion-col size="10" class="rewardCardRight">
-                                <ion-row class="d-flex align-items-center">
-                                    <ion-col size="12" class="rewardNameText">{{a.subject}}</ion-col>
-                                </ion-row>
-                            </ion-col>
-                        </ion-row>
-                    </ion-card>
-                </ion-col>
-
-            </ion-row>
+            <div class="modal-body">
+              <p class="modal-bodyText">{{promoOccasion}}</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary modal-footerBtn"
+                data-dismiss="modal"
+                (click)="closePopup()"
+                style="background-color: #657176"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <app-tab7 *ngIf="isLoading"></app-tab7>
+      <ion-row class="rewardList">
+        <ion-col size="6" *ngFor="let r of rewards" class="rewardCol">
+          <ion-card class="rewardCard">
+            <ion-row class="rewardCardRow">
+              <ion-col
+                class="rewardCardLeft"
+                size="4"
+                style="
+                  background: linear-gradient(
+                    179.5deg,
+                    #50ed83 3.3%,
+                    #1b9b44 96%
+                  );
+                "
+                >Reward</ion-col
+              >
+              <ion-col size="8" class="rewardCardRight">
+                <ion-row class="d-flex align-items-center">
+                  <ion-col class="rewardNameText" size="12"
+                    >{{r.rewardName}}</ion-col
+                  >
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" *ngFor="let p of promotions" class="rewardCol">
+          <ion-card class="rewardCard">
+            <ion-row class="rewardCardRow">
+              <ion-col
+                size="2"
+                class="rewardCardLeft"
+                style="
+                  background: linear-gradient(
+                    179.5deg,
+                    #f5c986 3.3%,
+                    #bd8633 96%
+                  );
+                "
+                >Promotion</ion-col
+              >
+              <ion-col size="10" class="rewardCardRight" (click)="openPopup(p)">
+                <ion-row class="d-flex align-items-center">
+                  <ion-col size="12" class="rewardNameText"
+                    >{{p.promotionalMessage}}</ion-col
+                  >
+                  <ion-col
+                    *ngIf="p.expiryDays > 1"
+                    size="12"
+                    class="rewardExpiryText"
+                    >Expires in {{p.expiryDays}} day</ion-col
+                  >
+                  <ion-col
+                    *ngIf="p.expiryDays == 1"
+                    size="12"
+                    class="rewardExpiryText"
+                    >Expiring today</ion-col
+                  >
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" *ngFor="let a of announcements" class="rewardCol">
+          <ion-card class="rewardCard">
+            <ion-row class="rewardCardRow">
+              <ion-col
+                size="2"
+                class="rewardCardLeft"
+                style="
+                  background: linear-gradient(
+                    179.5deg,
+                    #9f7edb 3.3%,
+                    #53289f 96%
+                  );
+                "
+                >Announcement</ion-col
+              >
+              <ion-col size="10" class="rewardCardRight">
+                <ion-row class="d-flex align-items-center">
+                  <ion-col size="12" class="rewardNameText"
+                    >{{a.subject}}</ion-col
+                  >
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <app-tab7 *ngIf="isLoading"></app-tab7>
 </ion-content>

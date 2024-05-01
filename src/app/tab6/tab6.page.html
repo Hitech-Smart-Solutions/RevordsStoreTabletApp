@@ -1,22 +1,28 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <app-header></app-header>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
-  <div style="width: 100%; height: 100%; background: #d9e7ed;">
-
-    <div class="wrapper historyContainer" [ngStyle]="{'display': displayStyleForHistory}" *ngIf="!isLoading">
+  <div style="width: 100%; height: 100%; background: #d9e7ed">
+    <div
+      class="wrapper historyContainer"
+      [ngStyle]="{'display': displayStyleForHistory}"
+      *ngIf="!isLoading"
+    >
       <form [formGroup]="HistoryFormGroup">
         <ion-row>
           <ion-col size="6">
-            <ion-searchbar class="searchbar" placeholder="Search by Name or Number" formControlName="searchvalue"
-              (ionInput)="common(0)">
+            <ion-searchbar
+              class="searchbar"
+              placeholder="Search by Name or Number"
+              formControlName="searchvalue"
+              (ionInput)="common(0)"
+            >
             </ion-searchbar>
           </ion-col>
           <ion-col size="3">
-            <select class="dropdown" (change)="common(0)" class="toggleBtnSelect" formControlName="toggleBtn">
+            <select
+              class="dropdown"
+              (change)="common(0)"
+              class="toggleBtnSelect"
+              formControlName="toggleBtn"
+            >
               <option [value]="1">Today</option>
               <option [value]="2">Yesterday</option>
               <option selected [value]="3">Last 7 Days</option>
@@ -24,10 +30,18 @@
             </select>
           </ion-col>
           <ion-col size="3">
-            <select class="dropdown" (change)="common(0)" class="activitySelect" formControlName="activity">
-              <option selected> All Activity</option>
-              <option *ngFor="let type of activityType" [selected]="type.activityName == selectedLabelClick"
-                [value]="type.activityName">
+            <select
+              class="dropdown"
+              (change)="common(0)"
+              class="activitySelect"
+              formControlName="activity"
+            >
+              <option selected>All Activity</option>
+              <option
+                *ngFor="let type of activityType"
+                [selected]="type.activityName == selectedLabelClick"
+                [value]="type.activityName"
+              >
                 {{type.activityName}}
               </option>
             </select>
@@ -37,25 +51,73 @@
 
       <div class="historyCard">
         <ion-row>
-          <div class="d-flex align-items-center" style="column-gap: 2%; width: 100%;">
-            <div class="filterClick" style="color: #0c3869;
-          background: linear-gradient(179.5deg, #e7ecf1 3.3%, #6888ab 96%);" (click)="common(1)">
-              <span class="rewards-redeemed-7Mb-sub-2">{{this.totalPromoActivity}} Promotion Redeemed</span>
+          <div
+            class="d-flex align-items-center"
+            style="column-gap: 2%; width: 100%"
+          >
+            <div
+              class="filterClick"
+              style="
+                color: #0c3869;
+                background: linear-gradient(
+                  179.5deg,
+                  #e7ecf1 3.3%,
+                  #6888ab 96%
+                );
+              "
+              (click)="common(1)"
+            >
+              <span class="rewards-redeemed-7Mb-sub-2"
+                >{{this.totalPromoActivity}} Promotion Redeemed</span
+              >
             </div>
-            <div class="filterClick"
-              style="color: #4b3535; background: linear-gradient(179.5deg, #e1e0e0 3.3%, #a99999 96%);"
-              (click)="common(2)">
-              <span class="rewards-redeemed-7Mb-sub-2">{{this.totalAPActivity}} Auto Campaigns Redeemed</span>
+            <div
+              class="filterClick"
+              style="
+                color: #4b3535;
+                background: linear-gradient(
+                  179.5deg,
+                  #e1e0e0 3.3%,
+                  #a99999 96%
+                );
+              "
+              (click)="common(2)"
+            >
+              <span class="rewards-redeemed-7Mb-sub-2"
+                >{{this.totalAPActivity}} Auto Campaigns Redeemed</span
+              >
             </div>
-            <div class="filterClick"
-              style="color: #705123; background: linear-gradient(179.5deg, #f9e8d8 3.3%, #b39f8c 96%);"
-              (click)="common(3)">
-              <span class="rewards-redeemed-7Mb-sub-2">{{this.totalRewardsEarned}} Rewards Redeemed</span>
+            <div
+              class="filterClick"
+              style="
+                color: #705123;
+                background: linear-gradient(
+                  179.5deg,
+                  #f9e8d8 3.3%,
+                  #b39f8c 96%
+                );
+              "
+              (click)="common(3)"
+            >
+              <span class="rewards-redeemed-7Mb-sub-2"
+                >{{this.totalRewardsEarned}} Rewards Redeemed</span
+              >
             </div>
-            <div class="filterClick"
-              style="color: #634b34; background: linear-gradient(179.5deg, #f9efe5 3.3%, #a78171 96%);"
-              (click)="common(4)">
-              <span class="rewards-redeemed-7Mb-sub-2">{{this.EarnedPointSum}} Points Earned</span>
+            <div
+              class="filterClick"
+              style="
+                color: #634b34;
+                background: linear-gradient(
+                  179.5deg,
+                  #f9efe5 3.3%,
+                  #a78171 96%
+                );
+              "
+              (click)="common(4)"
+            >
+              <span class="rewards-redeemed-7Mb-sub-2"
+                >{{this.EarnedPointSum}} Points Earned</span
+              >
             </div>
           </div>
         </ion-row>
@@ -63,93 +125,163 @@
         <table class="table-scroll mt-3">
           <thead>
             <tr>
-              <th scope="col" class="col-2" style="padding: 5px;">Name</th>
-              <th scope="col" class="col-2" style="padding: 5px;">Phone</th>
-              <th scope="col" class="col-3" style="padding: 5px;">Date Time</th>
-              <th scope="col" class="col-3" style="padding: 5px;">Activity Type</th>
-              <th scope="col" class="col-1" style="padding: 5px;">Points</th>
-              <th scope="col" class="col-1" style="padding: 5px;">Duration</th>
+              <th scope="col" class="col-2" style="padding: 5px">Name</th>
+              <th scope="col" class="col-2" style="padding: 5px">Phone</th>
+              <th scope="col" class="col-3" style="padding: 5px">Date Time</th>
+              <th scope="col" class="col-3" style="padding: 5px">
+                Activity Type
+              </th>
+              <th scope="col" class="col-1" style="padding: 5px">Points</th>
+              <th scope="col" class="col-1" style="padding: 5px">Duration</th>
             </tr>
           </thead>
           <tbody class="body-half-screen">
             <tr *ngFor="let history of historyData">
-              <td class="col-2 d-flex justify-content-center align-items-center" scope="row" style="padding: 10px; text-decoration: underline;">
-                <span (click)="editProfile(history)">{{history.membername}}</span>
+              <td
+                class="col-2 d-flex justify-content-center align-items-center"
+                scope="row"
+                style="padding: 10px; text-decoration: underline"
+              >
+                <span (click)="editProfile(history)"
+                  >{{history.membername}}</span
+                >
               </td>
-              <td class="col-2 d-flex justify-content-center align-items-center" style="padding: 10px;">
+              <td
+                class="col-2 d-flex justify-content-center align-items-center"
+                style="padding: 10px"
+              >
                 {{history.phone}}
               </td>
-              <td class="col-3 d-flex justify-content-center align-items-center" style="padding: 10px;">
-                {{history.datetime
-                | date: 'MM/dd/YYYY hh:mm a' }}</td>
-              <td class="col-3" style="padding: 10px;"><span>{{history.activityType}}</span>
-                <br><span style="font-size: 12px;color: green;font-weight: 500;">
+              <td
+                class="col-3 d-flex justify-content-center align-items-center"
+                style="padding: 10px"
+              >
+                {{history.datetime | date: 'MMM dd, YYYY hh:mm a' }}
+              </td>
+              <td class="col-3" style="padding: 10px">
+                <span>{{history.activityType}}</span> <br /><span
+                  style="font-size: 12px; color: green; font-weight: 500"
+                >
                   {{history.rewardName}}
                 </span>
               </td>
-              <td class="col-1 d-flex justify-content-center align-items-center" style="padding: 10px;">
+              <td
+                class="col-1 d-flex justify-content-center align-items-center"
+                style="padding: 10px"
+              >
                 {{history.points}}
               </td>
-              <td class="col-1 d-flex justify-content-center align-items-center" style="padding: 10px;">
-                {{history.timeDuration}}</td>
+              <td
+                class="col-1 d-flex justify-content-center align-items-center"
+                style="padding: 10px"
+              >
+                {{history.timeDuration}}
+              </td>
             </tr>
           </tbody>
           <div *ngIf="isDataExist == false">
             <h3
-              style="font-weight: 400; font-size: 130%; color: #717679; font-family: Satoshi Variable, 'Source Sans Pro';">
-              No History Available in this Selection..!</h3>
+              style="
+                font-weight: 400;
+                font-size: 130%;
+                color: #717679;
+                font-family: Satoshi Variable, 'Source Sans Pro';
+              "
+            >
+              No History Available in this Selection..!
+            </h3>
           </div>
         </table>
-
       </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-      <div class="modal-dialog" role="document" style="height: 100%; width: 100%; display: contents;">
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      [ngStyle]="{'display':displayStyle}"
+    >
+      <div
+        class="modal-dialog"
+        role="document"
+        style="height: 100%; width: 100%; display: contents"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">Edit Profile</h3>
-            <p style="font-size: 20px;">{{phoneNo}}</p>
+            <p style="font-size: 20px">{{phoneNo}}</p>
           </div>
           <div class="modal-body">
             <div class="MemberProfileFormCard">
               <form [formGroup]="memberDetails">
                 <ion-list formGroupName="addMemberDetails">
-                  <ion-row style="margin-bottom: 1%;">
+                  <ion-row style="margin-bottom: 1%">
                     <ion-col size="4">
                       <p class="inputTitleText">
-                        Member Since {{memberSince | date:'MMM YYYY'}}</p>
+                        Member Since {{memberSince | date:'MMM dd, YYYY'}}
+                      </p>
                     </ion-col>
                     <ion-col size="4">
                       <p class="inputTitleText text-center">
-                        {{currentPoints}} Current Point</p>
+                        {{currentPoints}} Current Point
+                      </p>
                     </ion-col>
                     <ion-col size="4">
-                      <p class="inputTitleText text-end" style="margin-right: 5%;">
-                        {{totalPoints}} Lifetime Point</p>
+                      <p
+                        class="inputTitleText text-end"
+                        style="margin-right: 5%"
+                      >
+                        {{totalPoints}} Lifetime Point
+                      </p>
                     </ion-col>
                   </ion-row>
 
-                  <div style="height: 2px; background-color: #dadbdc; margin: 0% 0% 0% -1%;"> </div>
+                  <div
+                    style="
+                      height: 2px;
+                      background-color: #dadbdc;
+                      margin: 0% 0% 0% -1%;
+                    "
+                  ></div>
 
                   <ion-row class="formRow">
                     <ion-col size="1" class="d-flex align-items-center">
-                      <p class="inputTitleText" style="font-weight: 500;">
-                        Name</p>
+                      <p class="inputTitleText" style="font-weight: 500">
+                        Name
+                      </p>
                     </ion-col>
-                    <ion-col size="5" class="d-flex align-items-center justify-content-center">
+                    <ion-col
+                      size="5"
+                      class="d-flex align-items-center justify-content-center"
+                    >
                       <ion-item lines="none" style="width: 100%">
-                        <ion-input class="form-control formInput" type="text" formControlName="name">
+                        <ion-input
+                          class="form-control formInput"
+                          type="text"
+                          formControlName="name"
+                        >
                         </ion-input>
                       </ion-item>
                     </ion-col>
-                    <ion-col size="2" class="d-flex align-items-center justify-content-center">
-                      <p class="inputTitleText" style="font-weight: 500;">
-                        Birthday</p>
+                    <ion-col
+                      size="1"
+                      class="d-flex align-items-center justify-content-start"
+                    >
+                      <p class="inputTitleText" style="font-weight: 500">
+                        Birthday
+                      </p>
                     </ion-col>
-                    <ion-col size="4" class="d-flex align-items-center justify-content-center">
+                    <ion-col
+                      size="5"
+                      class="d-flex align-items-center justify-content-center"
+                    >
                       <ion-item lines="none" style="width: 100%">
-                        <ion-input class="form-control formInput" type="text" value="{{birthDate}}" readonly>
+                        <ion-input
+                          class="form-control formInput"
+                          type="text"
+                          value="{{birthDate}}"
+                          readonly
+                        >
                         </ion-input>
                       </ion-item>
                     </ion-col>
@@ -157,64 +289,214 @@
 
                   <ion-row class="formRow">
                     <ion-col size="1" class="d-flex align-items-center">
-                      <p class="inputTitleText" style="font-weight: 500;">
-                        Email</p>
+                      <p class="inputTitleText" style="font-weight: 500">
+                        Email
+                      </p>
                     </ion-col>
                     <ion-col size="5" class="d-flex align-items-center">
                       <ion-item lines="none" style="width: 100%">
-                        <ion-input class="form-control formInput" type="email" formControlName="email"
-                          [class.is-invalid]="Email.invalid && Email.touched">
+                        <ion-input
+                          class="form-control formInput"
+                          type="email"
+                          formControlName="email"
+                          [class.is-invalid]="Email.invalid && Email.touched"
+                        >
                         </ion-input>
                       </ion-item>
                     </ion-col>
-                    <ion-col size="2" class="d-flex align-items-center justify-content-center">
-                      <ion-label class="inputTitleText" style="font-weight: 500;">High Roller?</ion-label>
-                    </ion-col>
-                    <ion-col size="4" class="d-flex align-items-center">
+
+                    <ion-col
+                      size="6"
+                      class="d-flex align-items-center justify-content-start"
+                      *ngIf="positiveFlagRequired"
+                    >
+                      <ion-label class="inputTitleText" style="font-weight: 500"
+                        >{{positiveFlagName}}</ion-label
+                      >
                       <ion-item lines="none">
-                        <ion-checkbox labelPlacement="start" [checked]="highroller"
-                          formControlName="highroller"></ion-checkbox>
+                        <ion-checkbox
+                          labelPlacement="start"
+                          [checked]="highroller"
+                          (ionChange)="handleHighRollerChange($event)"
+                          formControlName="highroller"
+                        ></ion-checkbox>
+                      </ion-item>
+                      <ion-label class="inputTitleText" style="font-weight: 500"
+                        >{{negativeFlagName}}</ion-label
+                      >
+                      <ion-item lines="none">
+                        <ion-checkbox
+                          labelPlacement="start"
+                          [checked]="freePlayer"
+                          formControlName="freePlayer"
+                          (ionChange)="handleFreePlayerChange($event)"
+                        ></ion-checkbox>
                       </ion-item>
                     </ion-col>
                   </ion-row>
 
-                  <ion-row style="height: 20%;">
+                  <ion-row style="height: 20%">
                     <ion-col size="1" class="d-flex align-items-center">
-                      <p class="inputTitleText" style="font-weight: 500;">Notes</p>
+                      <p class="inputTitleText" style="font-weight: 500">
+                        Notes
+                      </p>
                     </ion-col>
                     <ion-col size="5" class="d-flex align-items-center">
                       <ion-item lines="none" style="width: 100%">
-                        <ion-input class="form-control formInput" type="text" formControlName="notes">
+                        <ion-input
+                          class="form-control formInput"
+                          type="text"
+                          formControlName="notes"
+                        >
                         </ion-input>
                       </ion-item>
                     </ion-col>
-                    <!-- <ion-col size="6" class="d-flex align-items-center">
-                    <ion-item lines="none" style="width: 100%">
-                      <div style="background-color: #203139; border-radius: 50%; padding: 3%; margin: 0% 80% 0% 6%;">
-                        <img style="width: 100%;" src="./assets/history-P2y.png" />
-                      </div>
-                    </ion-item>
-                  </ion-col> -->
+                    <ion-col size="6">
+                      <!-- <ion-item lines="none" style="width: 100%">
+                        <div
+                          style="
+                            background-color: #203139;
+                            border-radius: 50%;
+                            padding: 3%;
+                            margin: 0% 80% 0% 6%;
+                          "
+                          (click)="openPopupNoteHistory()"
+                        >
+                          <img
+                            style="width: 100%"
+                            src="./assets/history-P2y.png"
+                          />
+                        </div>
+                      </ion-item> -->
+                    </ion-col>
                   </ion-row>
 
-                  <!-- <ion-row style="height: 20%;">
-                  <ion-col size="9"></ion-col>
-                  <ion-col size="3" class="d-flex align-items-center justify-content-end" style=" width: 100%;">
-                    <div class="SaveDiv">
-                      <p class="SaveText">Save Profile</p>
-                      <img width="10%" src="../../assets/checkcircle.png">
-                    </div>
-                  </ion-col>
-                </ion-row> -->
+                  <ion-row style="height: 20%">
+                    <ion-col size="1"></ion-col>
+                    <ion-col size="5">
+                      <ion-item lines="none" style="width: 100%">
+                        <!-- <ion-input
+                          class="form-control formInput"
+                          type="text"
+                          formControlName="notes"
+                        >
+                        </ion-input> -->
+                        <ion-textarea
+                          class="form-control formInput"
+                          [readonly]="true"
+                          label="Readonly textarea"
+                          value="{{oldNote}}"
+                          style="
+                            height: 100% !important;
+                            border-radius: 1rem !important;
+                            padding-left: 2% !important;
+                            color: #3b3b3b !important;
+                            background: lightgray !important;
+                          "
+                        >
+                        </ion-textarea>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-item lines="none" style="width: 20%">
+                        <div
+                          style="
+                            background-color: #203139;
+                            border-radius: 50%;
+                            padding: 20%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                          "
+                          (click)="openPopupNoteHistory()"
+                        >
+                          <img
+                            src="./assets/history-P2y.png"
+                          />
+                        </div>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
                 </ion-list>
               </form>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary modal-footerBtn" [disabled]="isSaveLoading" style="background-color: #203139; font-size: 125%;
-          padding: 2%; margin-right: 3%; border-radius: 12rem;" (click)="SaveProfile()">Save Changes</button>
-            <button type="button" class="btn btn-secondary modal-footerBtn" data-dismiss="modal" (click)="closePopup()"
-              style="background-color: #657176; padding: 2%; border-radius: 12rem; font-size: 125%;">Cancel</button>
+            <button
+              type="button"
+              class="btn btn-primary modal-footerBtn"
+              [disabled]="isSaveLoading"
+              style="
+                background-color: #203139;
+                font-size: 125%;
+                padding: 2%;
+                margin-right: 3%;
+                border-radius: 12rem;
+              "
+              (click)="SaveProfile()"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary modal-footerBtn"
+              data-dismiss="modal"
+              (click)="closePopup()"
+              
+              style="
+                background-color: #203139;
+                padding: 2%;
+                border-radius: 12rem;
+                font-size: 125%;
+              "
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal1"
+      tabindex="-1"
+      role="dialog"
+      [ngStyle]="{'display':displayStyle1}"
+    >
+      <div role="document" style="height: 100%">
+        <div class="modal-content1">
+          <div class="modal-header1">
+            <h5 class="modal-title1">Notes History</h5>
+            <button
+              type="button"
+              class="close1"
+              aria-label="Close"
+              (click)="closePopupNoteHistory()"
+            >
+              <span aria-hidden="true" style="display: block; font-size: 200%"
+                >×</span
+              >
+            </button>
+          </div>
+          <div class="modal-body1">
+            <ion-grid style="margin-bottom: 1%">
+              <ion-row>
+                <ion-col class="table-col">Date</ion-col>
+                <ion-col class="table-col">Notes</ion-col>
+                <ion-col class="table-col">Modified By</ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-grid style="height: 90%; overflow-y: scroll; font-size: 90%">
+              <ion-row class="rows" *ngFor="let note of notesHistory">
+                <ion-col class="table-col"
+                  >{{note.lastModifiedDate | date: 'MMM dd, YYYY hh:mm
+                  a'}}</ion-col
+                >
+                <ion-col class="table-col">{{note.notes}}</ion-col>
+                <ion-col class="table-col">{{note.modifiedBySource}}</ion-col>
+              </ion-row>
+              <p *ngIf="notesHistory?.length == 0" style="color: #6f6f6f">No Records Available</p>
+            </ion-grid>
           </div>
         </div>
       </div>

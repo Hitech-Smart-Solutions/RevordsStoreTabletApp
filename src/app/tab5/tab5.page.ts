@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MembersVistLog } from '../api/service/model';
 import { FormControl, Validators, FormGroup } from "@angular/forms"
 import { GetUserProfileService } from '../api/service/get-user-profile.service';
+import { MemberProfileService } from '../api/service/memberProfileService';
 import { ToastController } from '@ionic/angular';
 import * as CONSTANTS from '../api/service/Constants';
 
@@ -31,6 +32,7 @@ export class Tab5Page {
       dayID: new FormControl(''),
       note: new FormControl(''),
       highroller: new FormControl(false),
+      freePlayer: new FormControl(false),
       isOverAged: new FormControl(false)
     })
   });
@@ -50,33 +52,48 @@ export class Tab5Page {
   signInLog: any = [];
   days: number[];
   isMonthSelect: any = false;
-
+  positiveFlagRequired: any = false;
+  positiveFlagName: any;
+  negativeFlagName: any;
+  
   constructor(public activatedRoute: ActivatedRoute, private member: MembersVistLog, private router: Router, private userProfile: GetUserProfileService,
-    private toastCtrl: ToastController) {
-    // let val = localStorage.getItem('isAgeRestriction');
-    // this.isAgeRestriction = val != null && val != '' && val != undefined ? val : false;    
-
+    private memberProfileService: MemberProfileService, private toastCtrl: ToastController, private memberVisitLogService: MemberProfileService) {
     this.days = Array.from({ length: 31 }, (_, i) => i + 1);
+
+    this.userProfile
+      .GetBusinessGroupByID(this.businessGroupId)
+      .subscribe((data: any) => {
+        this.positiveFlagRequired = data.positiveFlagRequired;
+        this.positiveFlagName = data.positiveFlagName;
+        this.negativeFlagName = data.negativeFlagName;
+      });
   }
 
   ionViewWillEnter() {
-    // this.ngOnInit();
     this.userProfile.GetBusinessProfilesByID(this.businessLocationId).subscribe((data: any) => {
       this.isAgeRestriction = data.isAgeRestriction;
     });
   }
 
-  ngOnInit() {
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 500);
-  }
+  ngOnInit() {}
 
 
   displayStyle = "none";
   displayStyleForGuest = "none";
 
+  handleHighRollerChange(event) {
+    if (event.detail.checked) {
+      // If High Roller is checked, uncheck Free Player
+      this.multistep.controls['addMemberDetails'].controls['freePlayer'].setValue(false);
+    }
+  }
+
+  handleFreePlayerChange(event) {
+    if (event.detail.checked) {
+      // If Free Player is checked, uncheck High Roller
+      this.multistep.controls['addMemberDetails'].controls['highroller'].setValue(false);
+    }
+  }
 
   openPopup() {
     this.displayStyle = "block";
@@ -189,9 +206,9 @@ export class Tab5Page {
 
         this.newMemberPhone = Number(this.AddNumberDetails.display.value);
 
-        this.userProfile.GetMemberExistByPhoneNo(this.newMemberPhone).subscribe((res: any) => {
+        this.memberProfileService.GetMemberExistByPhoneNo(this.newMemberPhone).subscribe((res: any) => {
           this.memberDataExist = res;
-          this.userProfile.GetMemberProfileByPhoneNo(this.businessGroupId, this.newMemberPhone).subscribe((resProfile: any) => {
+          this.memberProfileService.GetMemberProfileByPhoneNo(this.businessGroupId, this.businessLocationId, this.newMemberPhone).subscribe((resProfile: any) => {
             this.memberProfileExist = resProfile;
 
             this.userProfile.GetMemberBySignout(this.businessLocationId, this.sourceId).subscribe((data: any) => {
@@ -255,12 +272,13 @@ export class Tab5Page {
                   "createdDate": currentDate,
                   "lastModifiedBy": 1,
                   "lastModifiedDate": currentDate,
-                  "isHighroller": 0,
+                  "isHighroller": this.AddMemberDetails.highroller.value,
+                  "isFreePlayer": this.AddMemberDetails.freePlayer.value,
                   "businessLocationID": this.businessLocationId,
                   "baseLocationID": this.businessLocationId
                 }
 
-                this.userProfile.PostMemberProfile(newMemberProfileData).subscribe((res: any) => {
+                this.memberProfileService.PostMemberProfile(newMemberProfileData).subscribe((res: any) => {
                   this.newMemberProfileRes = res;
                   let currentDate = CONSTANTS.ISODate();
                   this.member.MemberId = res.id;
@@ -372,6 +390,7 @@ export class Tab5Page {
           "lastModifiedBy": 1,
           "lastModifiedDate": currentDate,
           "isHighroller": this.AddMemberDetails.highroller.value,
+          "isFreePlayer": this.AddMemberDetails.freePlayer.value,
           "baseLocationID": this.businessLocationId,
           "isOverAged": localStorage.getItem('isAgeRestriction') == "true" ? this.AddMemberDetails.isOverAged.value : false
         }
@@ -379,7 +398,7 @@ export class Tab5Page {
     }
 
     setTimeout(() => {
-      this.userProfile.PostNewMemberInStore(newMemberData).subscribe(async (res: any) => {
+      this.memberProfileService.PostNewMemberInStore(newMemberData).subscribe(async (res: any) => {
         this.router.navigate(['tab2']);
         const toast = await this.toastCtrl.create({
           message: "New Member Added",

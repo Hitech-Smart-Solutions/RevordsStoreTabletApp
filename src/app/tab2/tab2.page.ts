@@ -8,14 +8,18 @@ import { PromotionService } from '../api/service/promotionService';
 import { AnnouncementService } from '../api/service/announcementService';
 import { ChecklistService } from '../api/service/checklist';
 import * as CONSTANTS from '../api/service/Constants';
-import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
 import { AppService } from '../api/service/app.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements ViewWillEnter {
   signinMemberData: any = [];
@@ -29,8 +33,8 @@ export class Tab2Page implements ViewWillEnter {
     speed: 400,
     loop: true,
     autoplay: {
-      delay: 4000
-    }
+      delay: 4000,
+    },
   };
   promotions: any = [];
   announcements: any = [];
@@ -39,107 +43,48 @@ export class Tab2Page implements ViewWillEnter {
   isLoading = true;
   currentRoute: string;
   constnt: any = CONSTANTS;
-  displayStyle = "none";
+  displayStyle = 'none';
   promoSubject: string = '';
   promoOccasion: string = '';
   private hubConnectionBuilder!: HubConnection;
 
-
-  constructor(private userProfile: GetUserProfileService, private user: User, private toastCtrl: ToastController,
-    public activatedRoute: ActivatedRoute, private router: Router, private promotionService: PromotionService,
-    private announcementService: AnnouncementService, private rewardService: RewardService, private _appServive: AppService,
-    private checklistService: ChecklistService) {
-    this.businessLocationId = localStorage.getItem("businessLocationId");
-    this.sourceId = localStorage.getItem("sourceId");
+  constructor(
+    private userProfile: GetUserProfileService,
+    private user: User,
+    private toastCtrl: ToastController,
+    public activatedRoute: ActivatedRoute,
+    private router: Router,
+    private promotionService: PromotionService,
+    private announcementService: AnnouncementService,
+    private rewardService: RewardService,
+    private _appServive: AppService,
+    private checklistService: ChecklistService
+  ) {
+    this.businessLocationId = localStorage.getItem('businessLocationId');
+    this.sourceId = localStorage.getItem('sourceId');
     this.businessGroupID = localStorage.getItem('businessGroupId');
 
-    // this._appServive.getData.subscribe(data => {
-    //   // this.signinMemberData = data
-
-    //   let dataId = {
-    //     "id": []
-    //   };
-    //   data?.forEach(element => {
-    //     let detail = {
-    //       "id": element.memberId,
-    //       "point": element.currentPoints
-    //     }
-    //     dataId.id.push(detail)
-    //   });
-
-    //   let signInId = {
-    //     "id": []
-    //   };
-    //   this.signinMemberData.forEach(element => {
-    //     let detail = {
-    //       "id": element.memberId,
-    //       "point": element.currentPoints
-    //     }
-    //     signInId.id.push(detail)
-    //   });
-
-    //   if (signInId.id.length >= 0) {
-    //     if (JSON.stringify(signInId.id) === JSON.stringify(dataId.id)) {
-    //       //do nothing
-    //     }
-    //     else {
-    //       var arr = []
-    //       var flag = 0;
-    //       dataId.id.forEach(function (newChoice) {
-    //         signInId.id.forEach(function (oldChoice) {
-    //           if (oldChoice.id == newChoice.id) {
-    //             flag = 1;
-    //           }
-    //         });
-    //         if (flag != 1) {
-    //           arr.push(newChoice);
-    //         }
-    //         flag = 0;
-    //       });
-
-    //       this.signinMemberData = data;
-    //       if (arr.length > 0) {
-    //         this.isLoading = true;
-    //         this.showData = false;
-    //         let m = this.signinMemberData.filter((x) => x.memberId == arr[0].id);
-    //         setTimeout(() => {
-    //           if (router.url == '/tab2') {
-    //             let navigationExtras: NavigationExtras = { queryParams: { memberData: JSON.stringify(m[0]), isCancel: true } };
-    //             this.router.navigate(['tab2/redeemRewards'], navigationExtras);
-    //             this.showData = true;
-    //             this.isLoading = false;                
-    //           }
-    //         }, 1000);
-    //       }
-    //     }
-    //   }
-    //   else {
-    //     this.signinMemberData = data;
-    //   }
-
-    //   // if (this.signinMemberData != undefined && this.signinMemberData != null && this.signinMemberData != '' && this.signinMemberData.length != 0) {
-    //   //   this.signinMemberData.forEach(element => {
-    //   //     let localDate = CONSTANTS.convertISODateToLocal(element.signIn);
-    //   //     var d = Math.round((new Date().getTime() - localDate.getTime()) / 1000);
-    //   //     var h = Math.floor(d / 3600);
-    //   //     var m = Math.floor(d % 3600 / 60);
-    //   //     var s = Math.floor(d % 3600 % 60);
-    //   //     element.timer = h.toString().padStart(1, '0') + ':' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
-    //   //   });
-    //   // }
-    // }
-
-    // );
-
     setInterval(() => {
-      if (this.signinMemberData != undefined && this.signinMemberData != null && this.signinMemberData != '' && this.signinMemberData.length != 0)
-        this.signinMemberData.forEach(element => {
+      if (
+        this.signinMemberData != undefined &&
+        this.signinMemberData != null &&
+        this.signinMemberData != '' &&
+        this.signinMemberData.length != 0
+      )
+        this.signinMemberData.forEach((element) => {
           let localDate = CONSTANTS.convertISODateToLocal(element.signIn);
-          var d = Math.round((new Date().getTime() - localDate.getTime()) / 1000);
+          var d = Math.round(
+            (new Date().getTime() - localDate.getTime()) / 1000
+          );
           var h = Math.floor(d / 3600);
-          var m = Math.floor(d % 3600 / 60);
-          var s = Math.floor(d % 3600 % 60);
-          element.timer = h.toString().padStart(1, '0') + ':' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+          var m = Math.floor((d % 3600) / 60);
+          var s = Math.floor((d % 3600) % 60);
+          element.timer =
+            h.toString().padStart(1, '0') +
+            ':' +
+            m.toString().padStart(2, '0') +
+            ':' +
+            s.toString().padStart(2, '0');
         });
     }, 1000);
   }
@@ -150,36 +95,37 @@ export class Tab2Page implements ViewWillEnter {
 
   ngOnInit() {
     this.isLoading = true;
-    this.businessLocationId = localStorage.getItem("businessLocationId");
-    this.sourceId = localStorage.getItem("sourceId");
+    this.businessLocationId = localStorage.getItem('businessLocationId');
+    this.sourceId = localStorage.getItem('sourceId');
     this.businessGroupID = localStorage.getItem('businessGroupId');
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
 
-    this.userProfile.GetMemberBySignout(this.businessLocationId, this.sourceId).subscribe((data: any) => {
-      this.signinMemberData = data;
-    });
+    //Get Sign in member data first time when page load
+    this.userProfile
+      .GetMemberBySignout(this.businessLocationId, this.sourceId)
+      .subscribe((data: any) => {
+        this.signinMemberData = data;
+      });
 
-    // setInterval(function () {
-    this._appServive.getData.subscribe(data => {
-
+    //When signalr response come, it will call the api to get signin member
+    this._appServive.getData.subscribe((data) => {
       if (this.router.url == '/tab2') {
         this.GetBusinesswiseSignOutList();
       }
     });
-    // }.bind(this), 3000);
 
-    this.userProfile.GetMemberBySignout(this.businessLocationId, this.sourceId).subscribe((data: any) => {
-      this.signinMemberData = data;
-    }, async (error) => {
-      const toast = await this.toastCtrl.create({
-        message: "Something went wrong, Try after some time!",
-        duration: 2500,
-        cssClass: 'custom-toast'
-      });
-      toast.present();
-    });
+    // this.userProfile.GetMemberBySignout(this.businessLocationId, this.sourceId).subscribe((data: any) => {
+    //   this.signinMemberData = data;
+    // }, async (error) => {
+    //   const toast = await this.toastCtrl.create({
+    //     message: "Something went wrong, Try after some time!",
+    //     duration: 2500,
+    //     cssClass: 'custom-toast'
+    //   });
+    //   toast.present();
+    // });
     this.GetBusinesswiseSignOutList();
     this.GetPromotionsByBusinessLocationID();
     this.GetAnnouncementsByBusinessLocationID();
@@ -188,159 +134,157 @@ export class Tab2Page implements ViewWillEnter {
   }
 
   GetBusinesswiseSignOutList() {
-    this.userProfile.GetMemberBySignout(this.businessLocationId, this.sourceId).subscribe((data: any) => {
-      let dataId = {
-        "id": []
-      };
-      data.forEach(element => {
-        let detail = {
-          "id": element.memberId,
-          "point": element.currentPoints
-        }
-        dataId.id.push(detail)
-      });
-
-      let signInId = {
-        "id": []
-      };
-      this.signinMemberData.forEach(element => {
-        let detail = {
-          "id": element.memberId,
-          "point": element.currentPoints
-        }
-        signInId.id.push(detail)
-      });
-
-      if (signInId.id.length >= 0) {
-        if (JSON.stringify(signInId.id) === JSON.stringify(dataId.id)) {
-          //do nothig
-          // console.log(signInId.id);
-        }
-        else {
-          var arr = []
-          var flag = 0;
-          dataId.id.forEach(function (newChoice) {
-            signInId.id.forEach(function (oldChoice) {
-              if (oldChoice.id == newChoice.id) {
-                flag = 1;
-              }
-            });
-            if (flag != 1) {
-              arr.push(newChoice);
-            }
-            flag = 0;
+    //Get signin member by location and source id
+    this.userProfile
+      .GetMemberBySignout(this.businessLocationId, this.sourceId)
+      .subscribe(
+        (data: any) => {
+          let dataId = {
+            id: [],
+          };
+          data.forEach((element) => {
+            let detail = {
+              id: element.memberId,
+              point: element.currentPoints,
+            };
+            dataId.id.push(detail);
           });
 
-          this.signinMemberData = data;
-          // console.log(arr);
-          if (arr.length > 0) {
-            this.isLoading = true;
-            this.showData = false;
-            let m = this.signinMemberData.filter((x) => x.memberId == arr[0].id);
-            setTimeout(() => {
-              let navigationExtras: NavigationExtras = { queryParams: { memberData: JSON.stringify(m[0]), isCancel: true } };
-              this.router.navigate(['tab2/redeemRewards'], navigationExtras);
-              this.showData = true;
-              this.isLoading = false;
-            }, 1000);
-          }
-        }
-      }
-      else {
-        this.signinMemberData = data;
-      }
+          let signInId = {
+            id: [],
+          };
+          this.signinMemberData.forEach((element) => {
+            let detail = {
+              id: element.memberId,
+              point: element.currentPoints,
+            };
+            signInId.id.push(detail);
+          });
 
-      if (this.signinMemberData != undefined && this.signinMemberData != null && this.signinMemberData != '' && this.signinMemberData.length != 0) {
-        this.signinMemberData.forEach(element => {
-          let localDate = CONSTANTS.convertISODateToLocal(element.signIn);
-          var d = Math.round((new Date().getTime() - localDate.getTime()) / 1000);
-          var h = Math.floor(d / 3600);
-          var m = Math.floor(d % 3600 / 60);
-          var s = Math.floor(d % 3600 % 60);
-          element.timer = h.toString().padStart(1, '0') + ':' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
-        });
-      }
-    },
-      async (error) => {
-        const toast = await this.toastCtrl.create({
-          message: "Something went wrong, Try after some time!",
-          duration: 2500
-        });
-        toast.present();
-      }
-    );
+          if (signInId.id.length >= 0) {
+            //This is done to check if new member comes then open his popup
+            if (JSON.stringify(signInId.id) === JSON.stringify(dataId.id)) {
+              //do nothing
+            } else {
+              var arr = [];
+              var flag = 0;
+              dataId.id.forEach(function (newChoice) {
+                signInId.id.forEach(function (oldChoice) {
+                  if (oldChoice.id == newChoice.id) {
+                    flag = 1;
+                  }
+                });
+                if (flag != 1) {
+                  arr.push(newChoice);
+                }
+                flag = 0;
+              });
+
+              this.signinMemberData = data;
+              if (arr.length > 0) {
+                this.isLoading = true;
+                this.showData = false;
+                let m = this.signinMemberData.filter(
+                  (x) => x.memberId == arr[0].id
+                );
+                setTimeout(() => {
+                  let navigationExtras: NavigationExtras = {
+                    queryParams: {
+                      memberData: JSON.stringify(m[0]),
+                      isCancel: true,
+                    },
+                  };
+                  this.router.navigate(
+                    ['tab2/redeemRewards'],
+                    navigationExtras
+                  );
+                  this.showData = true;
+                  this.isLoading = false;
+                }, 1000);
+              }
+            }
+          } else {
+            this.signinMemberData = data;
+          }
+
+          //This is to display time duration for each member
+          if (
+            this.signinMemberData != undefined &&
+            this.signinMemberData != null &&
+            this.signinMemberData != '' &&
+            this.signinMemberData.length != 0
+          ) {
+            this.signinMemberData.forEach((element) => {
+              let localDate = CONSTANTS.convertISODateToLocal(element.signIn);
+              var d = Math.round(
+                (new Date().getTime() - localDate.getTime()) / 1000
+              );
+              var h = Math.floor(d / 3600);
+              var m = Math.floor((d % 3600) / 60);
+              var s = Math.floor((d % 3600) % 60);
+              element.timer =
+                h.toString().padStart(1, '0') +
+                ':' +
+                m.toString().padStart(2, '0') +
+                ':' +
+                s.toString().padStart(2, '0');
+            });
+          }
+        },
+        async (error) => {
+          const toast = await this.toastCtrl.create({
+            message: 'Something went wrong, Try after some time!',
+            duration: 2500,
+          });
+          toast.present();
+        }
+      );
   }
 
-
   GetPromotionsByBusinessLocationID() {
-    this.promotionService.GetPromotionsByBusinessLocationID(this.businessLocationId).subscribe((data: any) => {
-      this.promotions = data;
-    }
-    // ,
-    //   async (error) => {
-    //     const toast = await this.toastCtrl.create({
-    //       message: "Something went wrong, Try after some time!",
-    //       duration: 5000,
-    //       cssClass: 'custom-toast'
-    //     });
-    //     toast.present();
-    //   }
-    );
+    //To dispaly promotions on main page
+    this.promotionService
+      .GetPromotionsByBusinessLocationID(this.businessLocationId)
+      .subscribe((data: any) => {
+        this.promotions = data;
+      });
   }
 
   GetAnnouncementsByBusinessLocationID() {
-    this.announcementService.GetAnnouncementsByBusinessLocationID(this.businessLocationId).subscribe((data: any) => {
-      this.announcements = data;
-    }
-    // ,
-    //   async (error) => {
-    //     const toast = await this.toastCtrl.create({
-    //       message: "Something went wrong, Try after some time!",
-    //       duration: 5000,
-    //       cssClass: 'custom-toast'
-    //     });
-    //     toast.present();
-    //   }
-    );
+    //To dispaly announcement on main page
+    this.announcementService
+      .GetAnnouncementsByBusinessLocationID(this.businessLocationId)
+      .subscribe((data: any) => {
+        this.announcements = data;
+      });
   }
 
   GetRewardsByBusinessGroupID() {
-    this.rewardService.GetRewardConfigByBusinessGroupId(this.businessGroupID).subscribe((data: any) => {
-      this.rewards = data;
-    }
-    // ,
-    //   async (error) => {
-    //     const toast = await this.toastCtrl.create({
-    //       message: "Something went wrong, Try after some time!",
-    //       duration: 5000,
-    //       cssClass: 'custom-toast'
-    //     });
-    //     toast.present();
-    //   }
-    );
+    //To dispaly standard rewards on main page
+    this.rewardService
+      .GetRewardConfigByBusinessGroupId(this.businessGroupID)
+      .subscribe((data: any) => {
+        this.rewards = data;
+      });
   }
 
   GetChecklistByBusinessGroupID() {
-    this.checklistService.GetChecklistByBusinessGroupID(this.businessGroupID).subscribe((data: any) => {
-      this.checklist = data;
-    }
-    // ,
-    //   async (error) => {
-    //     const toast = await this.toastCtrl.create({
-    //       message: "Something went wrong, Try after some time!",
-    //       duration: 5000,
-    //       cssClass: 'custom-toast'
-    //     });
-    //     toast.present();
-    //   }
-    );
+    //For getting checklist if no member sign in currently
+    this.checklistService
+      .GetChecklistByBusinessGroupID(this.businessGroupID)
+      .subscribe((data: any) => {
+        this.checklist = data;
+      });
   }
 
   GetMemberDetail(member: any) {
+    //Open the member popup with details
     this.isLoading = true;
     this.showData = false;
     setTimeout(() => {
-      let navigationExtras: NavigationExtras = { queryParams: { memberData: JSON.stringify(member), isCancel: false } };
+      let navigationExtras: NavigationExtras = {
+        queryParams: { memberData: JSON.stringify(member), isCancel: false },
+      };
       this.router.navigate(['tab2/redeemRewards'], navigationExtras);
       this.showData = true;
       this.isLoading = false;
@@ -348,14 +292,20 @@ export class Tab2Page implements ViewWillEnter {
   }
 
   openPopup(promo: any) {
-    this.displayStyle = "block";
+    //Open Promotion modal
+    this.displayStyle = 'block';
     this.promoSubject = promo.promotionalMessage;
     this.promoOccasion = promo.occasion;
   }
 
   closePopup() {
-    this.displayStyle = "none";
+    //Close Promotion modal
+    this.displayStyle = 'none';
     this.promoSubject = '';
     this.promoOccasion = '';
+  }
+
+  refreshPage() {
+    this.ionViewWillEnter();
   }
 }
