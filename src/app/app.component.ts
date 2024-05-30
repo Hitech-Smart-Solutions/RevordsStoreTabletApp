@@ -31,11 +31,11 @@ export class AppComponent {
   constructor(
     private router: Router,
     private backgroundService: BackgroundService,
-    private _appServive: AppService,
     private userProfile: GetUserProfileService,
     private user: User,
-    private toastCtrl: ToastController
-  ) {
+    private appService: AppService
+  )
+  {
     this.businessLocationId = localStorage.getItem('businessLocationId');
     this.sourceId = localStorage.getItem('sourceId');
 
@@ -136,8 +136,8 @@ export class AppComponent {
         // });
         // toast.present();
         // this.router.navigate(['']);
-      }
       // }
+      }
     );
   }
 
@@ -152,10 +152,10 @@ export class AppComponent {
     }
   }
   ngOnInit(): void {
-    setInterval(
-      function () {
+    // setInterval(
+    //   function () {
         this.hubConnectionBuilder = new HubConnectionBuilder()
-          .withUrl('ws://ho.hitechprojects.co.in:8101/api/GetMemberLog', {
+          .withUrl('wss://dashboard.revords.com/testapi/api/GetMemberLog', {
             skipNegotiation: true,
             transport: signalR.HttpTransportType.WebSockets,
           })
@@ -166,15 +166,18 @@ export class AppComponent {
         this.hubConnectionBuilder
           .start()
           .then()
-          .catch((err) => console.log('Error while connect with server', err));
+          .catch((err) => {
+            console.log('Error while connect with server', err);
+            this.router.navigate(['networkConnectivity']);
+          });
         this.hubConnectionBuilder.on(
           'SendMessageToUser',
           (userid: any, result: any) => {
-            this._appServive.setData(result);
+            this.appService.setData(result);
           }
         );
-      }.bind(this),
-      10000
-    );
+      // }.bind(this)
+      // 10000
+    // );
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../api/service/app.service';
+import * as CONSTANTS from '../api/service/Constants';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +13,17 @@ export class HeaderPage implements OnInit {
   speedSignal: any = "../../assets/wifi.png";
   internetspeed: any = 0;
   businessGroupLogo: any;
-  constructor() {    
-    this.businessGroupLogo = localStorage.getItem('businessGroupImage');
+  constructor(private _appService: AppService) {    
+    // this.businessGroupLogo = localStorage.getItem('businessGroupImage');
     setInterval(() => {
       this.todaysDate = new Date();
     }, 1000);
-  }
 
+    this._appService.getbusinessGroupLogo.subscribe((logo) => {
+      this.businessGroupLogo = CONSTANTS.DownloadAPK_ENDPOINT + logo;
+    });
+  }
+  
   ngOnInit() {
   }
 

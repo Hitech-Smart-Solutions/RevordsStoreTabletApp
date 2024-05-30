@@ -87,6 +87,7 @@
                       class="form-control formInput"
                       type="text"
                       value="{{member.birthDate | date:'dd MMM'}}"
+                      style="background: #d9e7ed !important"
                       readonly
                     >
                     </ion-input>
@@ -190,7 +191,7 @@
                         border-radius: 1rem !important;
                         padding-left: 2% !important;
                         color: #3b3b3b !important;
-                        background: lightgray !important;
+                        background: #d9e7ed !important;
                       "
                     >
                     </ion-textarea>
@@ -268,7 +269,9 @@
                       >{{note.modifiedBySource}}</ion-col
                     >
                   </ion-row>
-                  <p *ngIf="notesHistory?.length == 0" style="color: #6f6f6f">No Records Available!</p>
+                  <p *ngIf="notesHistory?.length == 0" style="color: #6f6f6f">
+                    No Records Available!
+                  </p>
                 </ion-grid>
               </div>
             </div>

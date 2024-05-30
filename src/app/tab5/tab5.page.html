@@ -303,7 +303,7 @@
 
     <ion-row class="BtnRow">
       <ion-col size="3" *ngIf="step == 1">
-        <div style="height: 80%; margin: 2% 15% 0% 0%">
+        <div style="height: 80%; margin: 2% 15% 0% 0%" *ngIf="dynamicField != undefined && dynamicField.isAnonymousRequired == true">
           <ion-row
             class="d-flex justify-content-end"
             style="height: 100%; width: 100%"

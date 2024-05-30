@@ -87,13 +87,17 @@ export class Tab6Page {
   }
 
   openPopupNoteHistory() {
-    this.GetMemberNoteHistory();
-    this.displayStyle1 = 'block';
-    this.displayStyle = 'none';
+    if (this.isSaveLoading == false) {
+      this.GetMemberNoteHistory();
+      this.displayStyle1 = 'block';
+      this.displayStyle = 'none';      
+    }
   }
   closePopupNoteHistory() {
-    this.displayStyle1 = 'none';
-    this.displayStyle = 'block';
+    if (this.isSaveLoading == false) {
+      this.displayStyle1 = 'none';
+      this.displayStyle = 'block';      
+    }
   }
 
   async GetMemberNoteHistory() {
@@ -263,8 +267,10 @@ export class Tab6Page {
     this.displayStyle = "block";
   }
   closePopup() {
-    this.displayStyle = "none";
-    this.displayStyleForHistory = "block";
+    if (this.isSaveLoading == false) {
+      this.displayStyle = "none";
+      this.displayStyleForHistory = "block";      
+    }
   }
 
   get Email() {
@@ -331,8 +337,8 @@ export class Tab6Page {
             cssClass: 'custom-toast'
           });
           this.GetHistoryData();
-          this.closePopup();
           this.isSaveLoading = false;
+          this.closePopup();
           toast.present();
         },
           async (error) => {
@@ -341,15 +347,15 @@ export class Tab6Page {
               duration: 1500,
               cssClass: 'custom-toast'
             });
-            this.closePopup();
             this.isSaveLoading = false;
+            this.closePopup();
             toast.present();
           }
         );
       }, 1000);
     } else {
       const toast = await this.toastCtrl.create({
-        message: "Please enter valid email!!",
+        message: "Please enter valid email!",
         duration: 1500,
         cssClass: 'custom-toast'
       });

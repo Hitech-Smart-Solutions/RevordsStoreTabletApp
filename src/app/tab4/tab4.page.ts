@@ -199,8 +199,8 @@ export class Tab4Page {
       this.isLoading = true;
       this.showData = false;
 
-      this.member.isHighroller = this.AddMemberDetails.highroller.value;
-      this.member.isFreePlayer = this.AddMemberDetails.freePlayer.value;
+      // this.member.isHighroller = this.AddMemberDetails.highroller.value;
+      // this.member.isFreePlayer = this.AddMemberDetails.freePlayer.value;
       // this.member.notes = this.AddMemberDetails.notes.value;
 
       let navigationExtras: NavigationExtras = {
@@ -267,7 +267,7 @@ export class Tab4Page {
         }, 1000);
       } else {
         const toast = await this.toastCtrl.create({
-          message: 'Please enter valid email!!',
+          message: 'Please enter valid email!',
           duration: 1500,
           cssClass: 'custom-toast',
         });

@@ -1,35 +1,35 @@
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Satoshi Variable', 'Source Sans Pro';
+  margin: 0;
+  padding: 0;
+  font-family: "Satoshi Variable", "Source Sans Pro";
 }
 
 ul,
 li {
-    list-style: none;
+  list-style: none;
 }
 
 input {
-    border: none;
+  border: none;
 }
 
 body {
-    width: 144rem;
+  width: 144rem;
 }
 
 .customer-details-screen--sPF {
-    width: 100%;
-    overflow: hidden;
-    height: 100%;
-    position: relative;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    background-color: #d9e7ed;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #d9e7ed;
 }
 
 // .modal-wrapper {
@@ -38,189 +38,187 @@ body {
 //   }
 
 .ion-padding {
-    --ion-background-color: #d9e7ed;
+  --ion-background-color: #d9e7ed;
 }
 
 .modalHeader {
-    --background: #fff;
+  --background: #fff;
 }
 
 .sc-ion-input-md-h {
-    padding: 0px 0px 0px 10px !important;
+  padding: 0px 0px 0px 10px !important;
 }
 
 ion-checkbox::part(container) {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .nav-link:focus,
 .nav-link:hover {
-    background: #73a5bc !important;
+  background: #73a5bc !important;
 }
 
 .nav-tabs {
-    background-color: #203139 !important;
-    border-radius: 12rem !important;
-    width: 85% !important;
-    height: 100% !important;
+  background-color: #203139 !important;
+  border-radius: 12rem !important;
+  width: 85% !important;
+  height: 100% !important;
 }
 
 .nav-tabs .nav-link {
-    margin-bottom: 0px !important;
-    border: none !important;
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
-    border-radius: 12rem !important;
+  margin-bottom: 0px !important;
+  border: none !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-radius: 12rem !important;
 }
 
 .nav-link.active {
-    background: #73a5bc !important;
+  background: #73a5bc !important;
 }
 
-
 ion-checkbox {
-    --size: 26px;
-    --background-checked: #203139;
-    --border-color-checked: #d9e7ed;
+  --size: 26px;
+  --background-checked: #203139;
+  --border-color-checked: #d9e7ed;
 }
 
 .table-col {
-    background-color: #73a5bc;
-    border: solid 1px #fff;
-    color: #ffffff;
-    text-align: center;
+  background-color: #73a5bc;
+  border: solid 1px #fff;
+  color: #ffffff;
+  text-align: center;
 }
 
 .rows:nth-of-type(2n + 1) {
-    .table-col {
-        background-color: #d7d7d7;
-        color: #000000;
-    }
+  .table-col {
+    background-color: #e6f2f7;
+    color: #000000;
+  }
 }
 
 .rows:nth-of-type(2n + 2) {
-    .table-col {
-        background-color: #ededed;
-        color: #000;
-    }
+  .table-col {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 .MemberProfileContainer {
-    width: 100%;
-    height: 100%; 
-    background: #d9e7ed; 
-    box-sizing: border-box; 
-    overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  background: #d9e7ed;
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
 .MemberProfileContainerHeader {
-    width: 100%;
-    height: 100%; 
-    display: flex; 
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .backDiv {
-    margin-right: 2%; 
-    width: 50%; 
-    background-color: #203139; 
-    border-radius: 3.6rem; 
-    padding: 5%;
+  margin-right: 2%;
+  width: 50%;
+  background-color: #203139;
+  border-radius: 3.6rem;
+  padding: 5%;
 }
 .ProfileHeaderText {
-    font-weight: 700; 
-    color: #717679; 
-    font-size: 165%; 
-    
+  font-weight: 700;
+  color: #717679;
+  font-size: 165%;
 }
 .ProfilePhoneText {
-    font-weight: 700; 
-    font-size: 130%; 
-    color: #000000; 
-    
+  font-weight: 700;
+  font-size: 130%;
+  color: #000000;
 }
 
 .MemberProfileFormContainer {
-    height: 83%;
-    width: 100%; 
-    display: flex; 
-    justify-content: center;
+  height: 83%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .MemberProfileFormCard {
-    background-color: #ffffff; 
-    border-radius: 2.4rem; 
-    width: 95%; 
-    padding: 2%;
+  background-color: #ffffff;
+  border-radius: 2.4rem;
+  width: 95%;
+  padding: 2%;
 }
 .inputTitleText {
-    font-weight: 700; 
-    color: #717679; 
-    font-size: 115%; 
-    
+  font-weight: 700;
+  color: #717679;
+  font-size: 115%;
 }
 .formRow {
-    margin: 2% 0%;
-    height: 20%;
+  margin: 2% 0%;
+  height: 20%;
 }
 .formInput {
-    font-weight: 500; 
-    color: #203139; 
-    background: linear-gradient(179.5deg, rgb(255 255 255) 3.3%, rgb(223 223 223) 96%);
-    border-radius: 6rem; 
-    width: 100%; 
-    font-size: 115%; 
-    height: 75%;
+  font-weight: 500;
+  color: #203139;
+  // background: linear-gradient(179.5deg, rgb(255 255 255) 3.3%, rgb(223 223 223) 96%);
+  border-radius: 6rem;
+  width: 100%;
+  font-size: 115%;
+  height: 75%;
+  border: 1px solid #c7dbe3;
 }
 .SaveDiv {
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
-    background-color: #203139; 
-    border-radius: 12rem; 
-    padding: 4% 0%;
-    margin-bottom: 1%;    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #203139;
+  border-radius: 12rem;
+  padding: 4% 0%;
+  margin-bottom: 1%;
 }
 .SaveText {
-    color: #ffffff; 
-     
-    font-size: 100%; 
-    margin-right: 7%;
+  color: #ffffff;
+
+  font-size: 100%;
+  margin-right: 7%;
 }
 
 .modal {
-    height: 60%; 
-    width: 65%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  height: 60%;
+  width: 65%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .modal-content {
-    height: 100%; 
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  height: 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .modal-header {
-    height: 15%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    background: #24343ced;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #24343ced;
 }
 .modal-title {
-    font-weight: 700; 
-    
-    font-size: 125%; 
-    color: #fff; 
-    padding: 3%;
+  font-weight: 700;
+
+  font-size: 125%;
+  color: #fff;
+  padding: 3%;
 }
 .close {
-    background: #fff;
-    color: #000; 
-    margin-right: 0; 
-    height: 100%; 
-    padding: 0% 3%;
+  background: #fff;
+  color: #000;
+  margin-right: 0;
+  height: 100%;
+  padding: 0% 3%;
 }
 .modal-body {
-    height: 85%; 
-    padding: 3%; 
-    font-weight: 500; 
-     font-size: 100%;
+  height: 85%;
+  padding: 3%;
+  font-weight: 500;
+  font-size: 100%;
 }

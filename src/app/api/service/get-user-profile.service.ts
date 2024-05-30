@@ -72,4 +72,18 @@ export class GetUserProfileService {
         return data;
       }));
   }
+
+  GetDynamicFieldsByBusinessGroupId(businessGroupID: any) {
+    return this.http
+      .get<any>(
+        CONSTANTS.API_ENDPOINT +
+          'GroupWiseDynamicFields/GetDynamicFieldsByBusinessGroupId/' +
+          businessGroupID
+      )
+      .pipe(
+        map((member) => {
+          return member;
+        })
+      );
+  }
 }

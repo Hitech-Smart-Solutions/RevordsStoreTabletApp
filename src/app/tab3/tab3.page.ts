@@ -77,6 +77,7 @@ export class Tab3Page {
   constnt: any = CONSTANTS;
   disableRedeemBtn: Boolean = true;
   isHideRewards: any = false;
+  businessGroupData: any;
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -96,7 +97,7 @@ export class Tab3Page {
         this.memberProfile = JSON.parse(params['memberData']);
         this.isCancel = params['isCancel'];
         if (this.isCancel == 'true') {
-          this.showBtnTextCancel = 'Cancel';
+          this.showBtnTextCancel = 'Close';
         } else {
           this.showBtnTextCancel = 'Sign Out ';
         }
@@ -123,7 +124,7 @@ export class Tab3Page {
 
             this.promotionDetails.selectedPromotion.setValue(false);
             this.promotionDetails.selectedAutopilot.setValue(false);
-            this.promotionDetails.selectedReward.setValue(false);            
+            this.promotionDetails.selectedReward.setValue(false);
 
             await this.userProfile
               .GetSpinWheelConfigByMemberIDBusinessLocationID(
@@ -193,9 +194,19 @@ export class Tab3Page {
     }, 1000);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.GetBusinessGroup();
+  }
 
   displayStyle = 'none';
+
+  GetBusinessGroup() {
+    this.userProfile
+      .GetBusinessGroupByID(this.businessGroupId)
+      .subscribe((data: any) => {
+        this.businessGroupData = data;
+      });
+  }
 
   openPopup() {
     //Open redeem or signout popup modal
@@ -362,6 +373,24 @@ export class Tab3Page {
     }
   }
 
+  ContinueSignOut() {
+    if (
+      this.multistep.controls['promotionDetails'].invalid &&
+      this.step == 1
+    ) {
+      return;
+    }
+    this.step = this.step + 1;
+    this.disableBtnPrevious = false;
+
+    if (this.step == 2) {
+      this.GetRedeemRewardCount();
+    }
+  }
+
+  Close () {
+    this.router.navigate(['tab2']);
+  }
   //Call this function when click on redeem button
   async RedeemData() {
     this.isLoading = true;
@@ -616,11 +645,11 @@ export class Tab3Page {
     if (e.detail.checked) {
       this.CountPromotion = this.CountPromotion + 1;
       this.spinWheelData.spinWheelBorder = '2px solid #6a5471';
-      this.spinWheelData.transformScale = 'scale(0.96)';
+      this.spinWheelData.transformScale = 'scale(1)';
       this.spinWheelData.stateChecked = true;
     } else if (!e.detail.checked) {
       this.CountPromotion = this.CountPromotion - 1;
-      this.spinWheelData.spinWheelBorder = '2px solid #d9e7ed';
+      this.spinWheelData.spinWheelBorder = '2px double #d9e7ed';
       this.spinWheelData.transformScale = 'scale(0.9)';
       this.spinWheelData.stateChecked = false;
     }
@@ -634,7 +663,7 @@ export class Tab3Page {
       )[0].promotionBorder = '2px solid #dda045';
       this.promotionData.filter(
         (x) => x.promotionId == p.promotionId
-      )[0].transformScale = 'scale(0.96)';
+      )[0].transformScale = 'scale(1)';
       this.promotionData.filter(
         (x) => x.promotionId == p.promotionId
       )[0].stateChecked = true;
@@ -661,7 +690,7 @@ export class Tab3Page {
       )[0].autoPilotBorder = '2px solid #2196f396';
       this.autopilotData.filter(
         (x) => x.historyId == p.historyId
-      )[0].transformScale = 'scale(0.96)';
+      )[0].transformScale = 'scale(1)';
       this.autopilotData.filter(
         (x) => x.historyId == p.historyId
       )[0].stateChecked = true;
@@ -684,7 +713,7 @@ export class Tab3Page {
   onRewardSelected(e: any) {
     if (e.detail.checked) {
       this.rewardData.rewardBorder = '2px solid #2ac95d';
-      this.rewardData.transformScale = 'scale(0.96)';
+      this.rewardData.transformScale = 'scale(1)';
       this.rewardData.stateChecked = true;
       this.CountPromotion = this.CountPromotion + 1;
     } else if (!e.detail.checked) {

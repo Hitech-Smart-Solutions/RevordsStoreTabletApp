@@ -15,6 +15,7 @@ import {
 } from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
 import { AppService } from '../api/service/app.service';
+import { BackgroundService } from '../api/service/backgroundService';
 
 @Component({
   selector: 'app-tab2',
@@ -46,7 +47,8 @@ export class Tab2Page implements ViewWillEnter {
   displayStyle = 'none';
   promoSubject: string = '';
   promoOccasion: string = '';
-  private hubConnectionBuilder!: HubConnection;
+  test: any;
+  businessGroupData: any;
 
   constructor(
     private userProfile: GetUserProfileService,
@@ -57,8 +59,9 @@ export class Tab2Page implements ViewWillEnter {
     private promotionService: PromotionService,
     private announcementService: AnnouncementService,
     private rewardService: RewardService,
-    private _appServive: AppService,
-    private checklistService: ChecklistService
+    private _appService: AppService,
+    private checklistService: ChecklistService,
+    private backgroundService: BackgroundService
   ) {
     this.businessLocationId = localStorage.getItem('businessLocationId');
     this.sourceId = localStorage.getItem('sourceId');
@@ -91,6 +94,19 @@ export class Tab2Page implements ViewWillEnter {
 
   ionViewWillEnter() {
     this.ngOnInit();
+    // let counter: number = 0;
+    // const backgroundTask = setInterval(() => {
+    //   counter += 1;
+    //   this.backgroundService.GetLatestStoreTabletAppVersion().subscribe(
+    //     async (res) => {
+    //       // Nothing to do
+    //       this.test = 'test ' + counter;
+    //     },
+    //     async (error) => {
+    //       this.router.navigate(['networkConnectivity']);
+    //     }
+    //   );
+    // }, 5000);
   }
 
   ngOnInit() {
@@ -101,7 +117,7 @@ export class Tab2Page implements ViewWillEnter {
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
-
+    this.closePopup();
     //Get Sign in member data first time when page load
     this.userProfile
       .GetMemberBySignout(this.businessLocationId, this.sourceId)
@@ -110,7 +126,7 @@ export class Tab2Page implements ViewWillEnter {
       });
 
     //When signalr response come, it will call the api to get signin member
-    this._appServive.getData.subscribe((data) => {
+    this._appService.getData.subscribe((data) => {
       if (this.router.url == '/tab2') {
         this.GetBusinesswiseSignOutList();
       }
@@ -126,11 +142,21 @@ export class Tab2Page implements ViewWillEnter {
     //   });
     //   toast.present();
     // });
+    this.GetBusinessGroup();
     this.GetBusinesswiseSignOutList();
     this.GetPromotionsByBusinessLocationID();
     this.GetAnnouncementsByBusinessLocationID();
     this.GetRewardsByBusinessGroupID();
     this.GetChecklistByBusinessGroupID();
+  }
+
+  GetBusinessGroup() {
+    this.userProfile
+      .GetBusinessGroupByID(this.businessGroupID)
+      .subscribe((data: any) => {
+        this.businessGroupData = data;
+        this._appService.setbusinessGroupLogo(data.logoPath);
+      });
   }
 
   GetBusinesswiseSignOutList() {
@@ -232,11 +258,14 @@ export class Tab2Page implements ViewWillEnter {
           }
         },
         async (error) => {
-          const toast = await this.toastCtrl.create({
-            message: 'Something went wrong, Try after some time!',
-            duration: 2500,
-          });
-          toast.present();
+          // if (error.status == 0) {
+          //   this.router.navigate(['networkConnectivity']);
+          // }
+          // const toast = await this.toastCtrl.create({
+          //   message: 'Something went wrong, Try after some time!',
+          //   duration: 2500,
+          // });
+          // toast.present();
         }
       );
   }
@@ -285,6 +314,9 @@ export class Tab2Page implements ViewWillEnter {
       let navigationExtras: NavigationExtras = {
         queryParams: { memberData: JSON.stringify(member), isCancel: false },
       };
+      this.displayStyle = 'none';
+      this.promoSubject = '';
+      this.promoOccasion = '';
       this.router.navigate(['tab2/redeemRewards'], navigationExtras);
       this.showData = true;
       this.isLoading = false;
@@ -306,6 +338,7 @@ export class Tab2Page implements ViewWillEnter {
   }
 
   refreshPage() {
-    this.ionViewWillEnter();
+    // this.ionViewWillEnter();
+    window.location.reload();
   }
 }

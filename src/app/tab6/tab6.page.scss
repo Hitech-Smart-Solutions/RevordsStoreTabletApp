@@ -288,16 +288,17 @@ ion-checkbox {
 .formInput {
   font-weight: 500;
   color: #203139;
-  background: linear-gradient(
-    179.5deg,
-    rgb(255 255 255) 3.3%,
-    rgb(223 223 223) 96%
-  );
+  // background: linear-gradient(
+  //   179.5deg,
+  //   rgb(255 255 255) 3.3%,
+  //   rgb(223 223 223) 96%
+  // );
   // background-color: #f4f5f5;
   border-radius: 6rem;
   width: 100%;
   font-size: 115%;
   height: 75%;
+  border: 1px solid #c7dbe3;
 }
 .SaveDiv {
   display: flex;
@@ -378,7 +379,7 @@ ion-item:not(.item-label) .sc-ion-input-md-h {
 }
 .rows:nth-of-type(2n + 1) {
   .table-col {
-    background-color: #dbe7e7;
+    background-color: #e6f2f7;
     color: #000000;
   }
 }

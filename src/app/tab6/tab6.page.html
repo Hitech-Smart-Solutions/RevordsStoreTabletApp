@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-  <div style="width: 100%; height: 100%; background: #d9e7ed">
+  <div style="width: 100%; height: 100%; background: #d9e7ed" *ngIf="!isLoading && !isSaveLoading">
     <div
       class="wrapper historyContainer"
       [ngStyle]="{'display': displayStyleForHistory}"
@@ -258,7 +258,7 @@
                         <ion-input
                           class="form-control formInput"
                           type="text"
-                          formControlName="name"
+                          formControlName="name"                          
                         >
                         </ion-input>
                       </ion-item>
@@ -280,6 +280,7 @@
                           class="form-control formInput"
                           type="text"
                           value="{{birthDate}}"
+                          style="background: #d9e7ed !important"
                           readonly
                         >
                         </ion-input>
@@ -391,7 +392,7 @@
                             border-radius: 1rem !important;
                             padding-left: 2% !important;
                             color: #3b3b3b !important;
-                            background: lightgray !important;
+                            background: #d9e7ed !important;
                           "
                         >
                         </ion-textarea>
@@ -481,9 +482,9 @@
           <div class="modal-body1">
             <ion-grid style="margin-bottom: 1%">
               <ion-row>
-                <ion-col class="table-col">Date</ion-col>
-                <ion-col class="table-col">Notes</ion-col>
-                <ion-col class="table-col">Modified By</ion-col>
+                <ion-col class="table-col justify-content-center">Date</ion-col>
+                <ion-col class="table-col justify-content-center">Notes</ion-col>
+                <ion-col class="table-col justify-content-center">Modified By</ion-col>
               </ion-row>
             </ion-grid>
             <ion-grid style="height: 90%; overflow-y: scroll; font-size: 90%">
@@ -502,5 +503,5 @@
       </div>
     </div>
   </div>
-  <app-tab7 *ngIf="isLoading"></app-tab7>
+  <app-tab7 *ngIf="isLoading || isSaveLoading"></app-tab7>
 </ion-content>

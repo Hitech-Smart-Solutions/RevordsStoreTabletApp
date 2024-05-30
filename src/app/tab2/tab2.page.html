@@ -2,6 +2,7 @@
   <div class="customer-details-screen--sPF" *ngIf="!isLoading">
     <div class="homeContainer">
       <div class="home">
+        {{test}}
         <ion-row
           class="memberCardRow"
           *ngIf="signinMemberData != undefined && signinMemberData != null && signinMemberData!= ' ' && signinMemberData.length > 0"
@@ -12,11 +13,12 @@
             class="memberCardCol"
           >
             <ion-card class="memberCard" (click)="GetMemberDetail(h)">
+              <div class="ribbon-1 left" *ngIf="h.lifeTimeVisits == 0">NEW</div>
               <div style="margin: 0% 7% 0% 7%">
                 <ion-row>
                   <ion-col size="6" style="padding-left: 0% !important">
                     <div
-                      style="margin: 10% 0% 0% 0%; width: 60px; height: 60px"
+                      style="margin: 15% 0% 0% 0%; width: 60px; height: 60px"
                     >
                       <div style="width: 60px; height: 60px">
                         <img
@@ -129,9 +131,10 @@
                     <img
                       src="../assets/hourglassmedium-Ecy.png"
                       style="width: 75%"
+                      *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
                     />
                   </ion-col>
-                  <ion-col size="3" class="timer"> {{h.timer}} </ion-col>
+                  <ion-col size="3" class="timer" *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true"> {{h.timer}} </ion-col>
                 </ion-row>
               </ion-card-content>
             </ion-card>
@@ -162,15 +165,15 @@
           </ion-slides>
         </ion-row>
       </div>
-      <ion-row style="height: 5%">
-        <ion-col size="12" style="text-align: end;">
+      <!-- <ion-row style="height: 5%">
+        <ion-col size="12" style="text-align: end">
           <ion-icon
             name="refresh-circle-outline"
             style="color: #203139; font-size: 30px"
             (click)="refreshPage()"
           ></ion-icon>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       <div
         class="modal"
         tabindex="-1"

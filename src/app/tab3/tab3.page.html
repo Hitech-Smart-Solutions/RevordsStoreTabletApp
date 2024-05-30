@@ -2,43 +2,90 @@
   <div class="customer-details-screen--sPF" *ngIf="!isLoading">
     <div class="RewardRedeemContainer">
       <div class="RewardRedeem" [formGroup]="multistep" (ngSubmit)="submit()">
-
-        <ion-row style="height: 15%;">
-          <ion-col size="1" class="d-flex align-items-center" style="height: 100%;">
+        <ion-row style="height: 15%">
+          <div class="ribbon-1 left" *ngIf="member.lifeTimeVisits == 0">
+            NEW
+          </div>
+          <ion-col
+            size="1"
+            class="d-flex align-items-center"
+            style="height: 100%"
+          >
             <img src="../../assets/cancel.png" (click)="previous()" />
           </ion-col>
-          <ion-col size="1" class="d-flex align-items-center justify-content-center" style="height: 100%;"
-            (click)="GotoProfile()">
-            <div class="profillePicture d-flex align-items-center justify-content-center">
-              <img *ngIf="member.imagePath" src="{{member.imagePath}}"
-                class="profillePictureImg d-flex align-items-center justify-content-center" />
-              <img *ngIf="!member.imagePath" src="../../assets/defaultUser1.png"
-                class="profillePictureImg d-flex align-items-center justify-content-center" />
+          <ion-col
+            size="1"
+            class="d-flex align-items-center justify-content-center"
+            style="height: 100%"
+            (click)="GotoProfile()"
+          >
+            <div
+              class="profillePicture d-flex align-items-center justify-content-center"
+            >
+              <img
+                *ngIf="member.imagePath"
+                src="{{member.imagePath}}"
+                class="profillePictureImg d-flex align-items-center justify-content-center"
+              />
+              <img
+                *ngIf="!member.imagePath"
+                src="../../assets/defaultUser1.png"
+                class="profillePictureImg d-flex align-items-center justify-content-center"
+              />
             </div>
           </ion-col>
           <ion-col size="3" class="memberNameCol">
-            <p class="memberNameText"><span (click)="GotoProfile()">{{member.memberName}}</span></p>
-            <p class="memberSinceText"><span (click)="GotoProfile()">Member since {{member.memberSince | date:'MMM dd, YYYY'}}</span></p>
+            <p class="memberNameText">
+              <span (click)="GotoProfile()">{{member.memberName}}</span>
+            </p>
+            <p class="memberSinceText">
+              <span (click)="GotoProfile()"
+                >Member since {{member.memberSince | date:'MMM dd, YYYY'}}</span
+              >
+            </p>
           </ion-col>
-          <ion-col size="4" class="d-flex align-items-center" style="height: 100%;">
+          <ion-col
+            size="4"
+            class="d-flex align-items-center"
+            style="height: 100%"
+          >
             <div class="tagNameText">{{member.tagName}}</div>
-            <div class="d-flex align-items-center" style="padding-left: 5%;">
-              <img src="./assets/hourglassmedium-XUV.png" width="15%" style="margin-right: 5%;" />
-              <p class="timer">{{member.timer}}</p>
-              <p class="highroller"
-                style="font-weight: 700; color: #203139; font-family: Satoshi Variable, 'Source Sans Pro'; font-size: 90%;"
-                *ngIf="member.isHighroller">
+            <div class="d-flex align-items-center" style="padding-left: 5%">
+              <img
+                src="./assets/hourglassmedium-XUV.png"
+                width="15%"
+                style="margin-right: 5%"
+                *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
+              />
+              <p class="timer" *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true">{{member.timer}}</p>
+              <p
+                class="highroller"
+                style="
+                  font-weight: 700;
+                  color: #203139;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  font-size: 90%;
+                "
+                *ngIf="member.isHighroller"
+              >
                 <span style="color: rgb(0 179 54)">$$$</span>
               </p>
-              <p class="highroller"
-                style="font-weight: 700; color: #203139; font-family: Satoshi Variable, 'Source Sans Pro'; font-size: 90%;"
-                *ngIf="member.isFreePlayer">
-                <span style="color: rgb(255, 0, 0);">$$$</span>
-              </p>              
+              <p
+                class="highroller"
+                style="
+                  font-weight: 700;
+                  color: #203139;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  font-size: 90%;
+                "
+                *ngIf="member.isFreePlayer"
+              >
+                <span style="color: rgb(255, 0, 0)">$$$</span>
+              </p>
             </div>
           </ion-col>
           <ion-col size="2" class="currentPointsCol">
-            <p class="currentPointsText">{{member.currentPoints}} PT </p>
+            <p class="currentPointsText">{{member.currentPoints}} PT</p>
             <p class="currentBalanceText">Current Balance</p>
           </ion-col>
           <ion-col size="1">
@@ -48,23 +95,48 @@
           </ion-col>
         </ion-row>
 
-        <ion-row class="d-flex justify-content-center" style="height: 10%;">
+        <ion-row class="d-flex justify-content-center" style="height: 10%">
           <p class="titleText" *ngIf="step == 2">Visit Summary</p>
         </ion-row>
 
-        <ion-row class="stepper" *ngIf="step == 1" formGroupName="promotionDetails" [hidden]="isHideRewards">
-
+        <ion-row
+          class="stepper"
+          *ngIf="step == 1"
+          formGroupName="promotionDetails"
+          [hidden]="isHideRewards"
+        >
           <div class="row" *ngIf="showSpinWheelData == true">
             <div class="col-md-12">
-              <div class="rewardCard"
-                [ngStyle]="{'border': spinWheelData.spinWheelBorder , 'transform': spinWheelData.transformScale}">
-                <div class="rewardCardLeft" style="background: linear-gradient(179.5deg, #957d9d 3.3%, #4a3551 96%);">Spin Wheel</div>
+              <div
+                class="rewardCard"
+                [ngStyle]="{'border': spinWheelData.spinWheelBorder , 'transform': spinWheelData.transformScale}"
+              >
+                <div
+                  class="rewardCardLeft"
+                  style="
+                    background: linear-gradient(
+                      179.5deg,
+                      #957d9d 3.3%,
+                      #4a3551 96%
+                    );
+                  "
+                >
+                  Spin Wheel
+                </div>
                 <div class="rewardCardRight">
-                  <ion-item lines="none" style="width: 95%;">
-                    <ion-label class="rewardCardMsg" style="color: #176c00;">{{spinWheelData.arctext}}</ion-label>
-                    <ion-checkbox formControlName="selectedSpinWheel" [checked]="spinWheelData.stateChecked"
-                      [ngmodel]="spinWheelData.stateChecked" class="checkbox" justify="space-between"
-                      style="margin-right: 4%; height: 100%;" (ionChange)="onSpinWheelSelected($event)">
+                  <ion-item lines="none" style="width: 95%">
+                    <ion-label class="rewardCardMsg" style="color: #176c00"
+                      >{{spinWheelData.arctext}}</ion-label
+                    >
+                    <ion-checkbox
+                      formControlName="selectedSpinWheel"
+                      [checked]="spinWheelData.stateChecked"
+                      [ngmodel]="spinWheelData.stateChecked"
+                      class="checkbox"
+                      justify="space-between"
+                      style="margin-right: 4%; height: 100%"
+                      (ionChange)="onSpinWheelSelected($event)"
+                    >
                     </ion-checkbox>
                   </ion-item>
                 </div>
@@ -73,26 +145,68 @@
           </div>
 
           <div class="row" *ngIf="showPromotionData == true">
-            <div class="col-md-12" *ngFor="let promotion of promotionData; let i=index">
-              <div class="rewardCard"
-                [ngStyle]="{'border': promotion.promotionBorder , 'transform': promotion.transformScale}">
-                <div class="rewardCardLeft" style="background: linear-gradient(179.5deg, #f5c986 3.3%, #bd8633 96%);">Promotion</div>
+            <div
+              class="col-md-12"
+              *ngFor="let promotion of promotionData; let i=index"
+            >
+              <div
+                class="rewardCard"
+                [ngStyle]="{'border': promotion.promotionBorder , 'transform': promotion.transformScale}"
+              >
+                <div
+                  class="rewardCardLeft"
+                  style="
+                    background: linear-gradient(
+                      179.5deg,
+                      #f5c986 3.3%,
+                      #bd8633 96%
+                    );
+                  "
+                >
+                  Promotion
+                </div>
                 <div class="rewardCardRight">
-                  <ion-item lines="none" style="width: 95%;">
-                    <ion-label class="rewardCardMsg">{{promotion.promotionalMessage}}</ion-label>
-                    <ion-checkbox [checked]="promotion.stateChecked" [ngmodel]="promotion.stateChecked" class="checkbox"
-                      justify="space-between" style="margin-right: 4%; height: 100%;" [value]="promotion.promotionId"
-                      (ionChange)="onPromotionSelected($event,promotion)" [disabled]="!promotion.isRedeemable">
+                  <ion-item lines="none" style="width: 95%">
+                    <ion-label class="rewardCardMsg"
+                      >{{promotion.promotionalMessage}}</ion-label
+                    >
+                    <ion-checkbox
+                      [checked]="promotion.stateChecked"
+                      [ngmodel]="promotion.stateChecked"
+                      class="checkbox"
+                      justify="space-between"
+                      style="margin-right: 4%; height: 100%"
+                      [value]="promotion.promotionId"
+                      (ionChange)="onPromotionSelected($event,promotion)"
+                      [disabled]="!promotion.isRedeemable"
+                    >
                     </ion-checkbox>
                   </ion-item>
-                  <ion-label text-wrap style="display: flex; text-align: justify;padding-left: 16px;">
+                  <ion-label
+                    text-wrap
+                    style="
+                      display: flex;
+                      text-align: justify;
+                      padding-left: 16px;
+                    "
+                  >
                     <p *ngIf="promotion.expiryDays > 1" class="expireText">
-                      Expires in {{promotion.expiryDays}} days</p>
+                      Expires in {{promotion.expiryDays}} days
+                    </p>
                     <p *ngIf="promotion.expiryDays == 1" class="expireText">
-                      Expiring today</p>
-                    <p style="font-weight: 700; color: #831818; font-family: Satoshi Variable, 'Source Sans Pro'; font-size: 90%;"
-                      *ngIf="!promotion.isRedeemable">
-                      Non-Redeemable</p>
+                      Expiring today
+                    </p>
+                    <p
+                      style="
+                        font-weight: 700;
+                        color: #831818;
+                        font-family: Satoshi Variable, 'Source Sans Pro';
+                        font-size: 90%;
+                      "
+                      *ngIf="!promotion.isRedeemable"
+                    >
+                      Non-Redeemable
+                    </p>
                   </ion-label>
                 </div>
               </div>
@@ -100,27 +214,57 @@
           </div>
 
           <div class="row" *ngIf="showAutopilotData == true">
-            <div class="col-md-12" *ngFor="let autopilot of autopilotData; let i=index">
-              <div class="rewardCard"
-                [ngStyle]="{'border': autopilot.autoPilotBorder , 'transform': autopilot.transformScale}">
-                <div class="rewardCardLeft"
-                  style="background: linear-gradient(179.5deg, #007adb96 3.3%, #3397e596 96%);">AutoPilot</div>
+            <div
+              class="col-md-12"
+              *ngFor="let autopilot of autopilotData; let i=index"
+            >
+              <div
+                class="rewardCard"
+                [ngStyle]="{'border': autopilot.autoPilotBorder , 'transform': autopilot.transformScale}"
+              >
+                <div
+                  class="rewardCardLeft"
+                  style="
+                    background: linear-gradient(
+                      179.5deg,
+                      #007adb96 3.3%,
+                      #3397e596 96%
+                    );
+                  "
+                >
+                  AutoPilot
+                </div>
                 <div class="rewardCardRight">
-                  <ion-item lines="none" style="width: 95%;">
-                    <ion-label class="rewardCardMsg">{{autopilot.rewardName}} -
-                      <span style="font-size: 100%; font-weight: 500;">{{autopilot.campaignName}} </span>
+                  <ion-item lines="none" style="width: 95%">
+                    <ion-label class="rewardCardMsg"
+                      >{{autopilot.rewardName}}
                     </ion-label>
-                    <ion-checkbox formControlName="selectedAutopilot" [checked]="autopilot.stateChecked"
-                      [ngmodel]="autopilot.stateChecked" class="checkbox" justify="space-between"
-                      [value]="autopilot.autopilotId" style="margin-right: 4%; height: 100%;"
-                      (ionChange)="onAutopilotSelected($event,autopilot)">
+                    <ion-checkbox
+                      formControlName="selectedAutopilot"
+                      [checked]="autopilot.stateChecked"
+                      [ngmodel]="autopilot.stateChecked"
+                      class="checkbox"
+                      justify="space-between"
+                      [value]="autopilot.autopilotId"
+                      style="margin-right: 4%; height: 100%"
+                      (ionChange)="onAutopilotSelected($event,autopilot)"
+                    >
                     </ion-checkbox>
                   </ion-item>
-                  <ion-label text-wrap style="display: flex; text-align: justify;padding-left: 16px;">
+                  <ion-label
+                    text-wrap
+                    style="
+                      display: flex;
+                      text-align: justify;
+                      padding-left: 16px;
+                    "
+                  >
                     <p *ngIf="autopilot.expiryDays > 1" class="expireText">
-                      Expires in {{autopilot.expiryDays}} days</p>
+                      Expires in {{autopilot.expiryDays}} days
+                    </p>
                     <p *ngIf="autopilot.expiryDays == 1" class="expireText">
-                      Expiring today</p>
+                      Expiring today
+                    </p>
                   </ion-label>
                 </div>
               </div>
@@ -129,15 +273,36 @@
 
           <div class="row" *ngIf="showRewardData == true">
             <div class="col-md-12">
-              <div class="rewardCard"
-                [ngStyle]="{'border': rewardData.rewardBorder , 'transform': rewardData.transformScale}">
-                <div class="rewardCardLeft" style="background: linear-gradient(179.5deg, #50ed83 3.3%, #1b9b44 96%);">Reward</div>
+              <div
+                class="rewardCard"
+                [ngStyle]="{'border': rewardData.rewardBorder , 'transform': rewardData.transformScale}"
+              >
+                <div
+                  class="rewardCardLeft"
+                  style="
+                    background: linear-gradient(
+                      179.5deg,
+                      #50ed83 3.3%,
+                      #1b9b44 96%
+                    );
+                  "
+                >
+                  Reward
+                </div>
                 <div class="rewardCardRight">
-                  <ion-item lines="none" style="width: 95%;">
-                    <ion-label class="rewardCardMsg">{{rewardData.rewardName}}</ion-label>
-                    <ion-checkbox formControlName="selectedReward" [checked]="rewardData.stateChecked"
-                      [ngmodel]="rewardData.stateChecked" class="checkbox" justify="space-between"
-                      style="margin-right: 4%; height: 100%;" (ionChange)="onRewardSelected($event)">
+                  <ion-item lines="none" style="width: 95%">
+                    <ion-label class="rewardCardMsg"
+                      >{{rewardData.rewardName}}</ion-label
+                    >
+                    <ion-checkbox
+                      formControlName="selectedReward"
+                      [checked]="rewardData.stateChecked"
+                      [ngmodel]="rewardData.stateChecked"
+                      class="checkbox"
+                      justify="space-between"
+                      style="margin-right: 4%; height: 100%"
+                      (ionChange)="onRewardSelected($event)"
+                    >
                     </ion-checkbox>
                   </ion-item>
                 </div>
@@ -145,101 +310,340 @@
             </div>
           </div>
 
-          <div *ngIf="showPromotionData == false && showAutopilotData == false && showRewardData == false && showSpinWheelData == false"
-            style="height: 100%; display: flex; justify-content: center; align-items: center;">
-            <h2 style="opacity: 0.6; font-size: 130%; font-weight: 700; color: #203139;
-            font-family: Satoshi Variable, 'Source Sans Pro';">Have a Nice day..!!</h2>
-          </div>
-        </ion-row>
-
-        <ion-row class="d-flex align-items-center justify-content-center" style="height: 60%;" *ngIf="step == 2"
-          formGroupName="summaryDetails">
           <div
-            style="display: flex; flex-direction: column; background-color: #ffffff; border-radius: 2.4rem; width: 100%; height: 90%; padding: 3%;">
-            <ion-row style="height: 34%; display: flex; align-items: center;">
-              <ion-col size="10"
-                style="font-weight: 700; font-size: 130%; color: #717679; font-family: Satoshi Variable, 'Source Sans Pro';">
-                Redeemed a reward</ion-col>
-              <ion-col size="2" style="font-weight: 700; font-size: 130%; color: #717679; font-family: Satoshi Variable, 'Source Sans Pro';
-              text-align: center;">{{CountPromotion}} reward</ion-col>
+            *ngIf="showPromotionData == false && showAutopilotData == false && showRewardData == false && showSpinWheelData == false"
+            style="
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <h2
+              style="
+                opacity: 0.6;
+                font-size: 130%;
+                font-weight: 700;
+                color: #203139;
+                font-family: Satoshi Variable, 'Source Sans Pro';
+              "
+            >
+              Have a Nice day..!!
+            </h2>
+          </div>
+        </ion-row>
+
+        <ion-row
+          class="d-flex align-items-center justify-content-center"
+          style="height: 60%"
+          *ngIf="step == 2"
+          formGroupName="summaryDetails"
+        >
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              background-color: #ffffff;
+              border-radius: 2.4rem;
+              width: 100%;
+              height: 90%;
+              padding: 3%;
+            "
+          >
+            <ion-row style="height: 34%; display: flex; align-items: center">
+              <ion-col
+                size="10"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #717679;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                "
+              >
+                Redeemed a reward</ion-col
+              >
+              <ion-col
+                size="2"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #717679;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  text-align: center;
+                "
+                >{{CountPromotion}} reward</ion-col
+              >
             </ion-row>
-            <ion-row style="height: 34%; display: flex; align-items: center;">
-              <ion-col size="10"
-                style="font-weight: 700; font-size: 130%; color: #717679; font-family: Satoshi Variable, 'Source Sans Pro';">Earned
-                points
+            <ion-row style="height: 34%; display: flex; align-items: center">
+              <ion-col
+                size="10"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #717679;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                "
+                >Earned points
               </ion-col>
-              <ion-col size="2" style="font-weight: 700; font-size: 130%; color: #717679; font-family: Satoshi Variable, 'Source Sans Pro';
-              text-align: center;">{{EarnedPoints1}}</ion-col>
+              <ion-col
+                size="2"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #717679;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  text-align: center;
+                "
+                >{{EarnedPoints1}}</ion-col
+              >
             </ion-row>
-            <ion-row style="height: 34%; display: flex; align-items: center;">
-              <ion-col size="10"
-                style="font-weight: 700; font-size: 130%; color: #000000; font-family: Satoshi Variable, 'Source Sans Pro';">New
-                Total
+            <ion-row style="height: 34%; display: flex; align-items: center">
+              <ion-col
+                size="10"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #000000;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                "
+                >New Total
               </ion-col>
-              <ion-col size="2" style="font-weight: 700; font-size: 130%; color: #000000; font-family: Satoshi Variable, 'Source Sans Pro';
-              text-align: center;">{{NewTotalPoint}}</ion-col>
+              <ion-col
+                size="2"
+                style="
+                  font-weight: 700;
+                  font-size: 130%;
+                  color: #000000;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  text-align: center;
+                "
+                >{{NewTotalPoint}}</ion-col
+              >
             </ion-row>
           </div>
         </ion-row>
 
+        <ion-row
+          style="position: absolute; width: 96%; bottom: 3%; height: 10%"
+        >
+          <ion-col size="8" style="height: 100%"></ion-col>
 
-        <ion-row style="position: absolute; width: 95%; bottom: 3%; height: 10%;">
-          <ion-col size="8" style="height: 100%;"></ion-col>
-          <ion-col size="2" class="ion-text-center " style="height: 100%;"
-            *ngIf="step == 1 && (showPromotionData == true || showAutopilotData == true || showRewardData == true || (showSpinWheelData == true && isSpinWheelInteger == false))">
-            <ion-button [disabled]="disableRedeemBtn" (click)="openPopup()" shape="round" class="button" style="--background: #2ac95d; 
-            font-weight: 700; color: #ffffff; font-size: 100%;font-family: Satoshi Variable, 'Source Sans Pro'; margin-right: 8%; 
-            height: 100%;">Redeem
-              <img style="width: 25%; padding-left: 3%;" src="../../assets/checkcircle.png" />
-            </ion-button>
+          <ion-col size="4" *ngIf="step == 1">
+            <ion-row style="height: 100%">
+              <ion-col
+                class="ion-text-center"
+                style="height: 100%"
+                *ngIf="(showPromotionData == true || showAutopilotData == true || showRewardData == true || (showSpinWheelData == true && isSpinWheelInteger == false))
+                && businessGroupData != undefined && businessGroupData.isSignOutRequired == true
+            "
+              >
+                <ion-button
+                  [disabled]="disableRedeemBtn"
+                  (click)="openPopup()"
+                  shape="round"
+                  class="button"
+                  style="
+                    --background: #2ac95d;
+                    font-weight: 700;
+                    color: #ffffff;
+                    font-size: 100%;
+                    font-family: Satoshi Variable, 'Source Sans Pro';
+                    margin-right: 8%;
+                    height: 100%;
+                    float: right;
+                  "
+                  *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
+                  >Redeem
+                  <img
+                    style="width: 25%; padding-left: 3%"
+                    src="../../assets/checkcircle.png"
+                  />
+                </ion-button>
+              </ion-col>
+
+              <ion-col
+                class="ion-text-center"
+                style="height: 100%"
+                *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == false"
+              >
+                <ion-button
+                  (click)="ContinueSignOut()"
+                  shape="round"
+                  class="button"
+                  [disabled]="isHideRewards"
+                  *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == false"
+                  style="
+                    --background: #203139;
+                    font-weight: 700;
+                    color: #ffffff;
+                    font-size: 100%;
+                    font-family: Satoshi Variable, 'Source Sans Pro';
+                    margin-right: 8%;
+                    height: 100%;
+                    float: right;
+                  "
+                >
+                  Continue
+                  <img
+                    style="width: 20%; margin-left: 5%"
+                    src="../../assets/signout.png"
+                  />
+                </ion-button>
+              </ion-col>
+
+              <ion-col class="ion-text-center" style="height: 100%">
+                <ion-button
+                  (click)="next()"
+                  shape="round"
+                  class="button"
+                  [disabled]="isHideRewards"
+                  *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
+                  style="
+                    --background: #203139;
+                    font-weight: 700;
+                    color: #ffffff;
+                    font-size: 100%;
+                    font-family: Satoshi Variable, 'Source Sans Pro';                    
+                    height: 100%;
+                    float: right;
+                  "
+                >
+                  {{showBtnTextCancel}}
+                  <img
+                    style="width: 20%; padding-left: 3%"
+                    *ngIf="isCancel == 'false'"
+                    src="../../assets/signout.png"
+                  />
+                </ion-button>
+
+                <ion-button
+                  (click)="Close()"
+                  shape="round"
+                  class="button"
+                  [disabled]="isHideRewards"
+                  *ngIf="businessGroupData != undefined && businessGroupData.isSignOutRequired == false"
+                  style="
+                    --background: #203139;
+                    font-weight: 700;
+                    color: #ffffff;
+                    font-size: 100%;
+                    font-family: Satoshi Variable, 'Source Sans Pro';
+                    margin-right: 8%;
+                    height: 100%;
+                    float: right;
+                  "
+                >
+                  Close
+                </ion-button>
+              </ion-col>
+            </ion-row>
           </ion-col>
 
-          <ion-col size="2" style="height: 100%;"
-            *ngIf="(step == 1 && (showPromotionData == false && showAutopilotData == false && showRewardData == false && (showSpinWheelData == false || isSpinWheelInteger == true)))">
-          </ion-col>
-          <ion-col size="2" class="ion-text-center" *ngIf="(step == 1)" style="height: 100%;">
-            <ion-button (click)="next()" shape="round" class="button" [disabled]="isHideRewards"
-              style="--background: #203139; font-weight: 700; color: #ffffff; font-size: 100%; font-family: Satoshi Variable, 'Source Sans Pro'; margin-right: 8%; height: 100%;">
-              {{showBtnTextCancel}}
-              <img style="width: 20%; padding-left: 3%;" *ngIf="isCancel == 'false'" src="../../assets/signout.png" />
-            </ion-button>
-          </ion-col>
+          <!--  -->
 
-
-          <ion-col size="2" *ngIf="step == 2" style="height: 100%;"></ion-col>
-          <ion-col size="2" class="ion-text-center" style="height: 100%;" (click)="openPopup()" *ngIf="step == 2">
-            <ion-button shape="round" class="button"
-              style="--background: #203139; font-weight: 700; color: #ffffff; font-size: 100%; font-family: Satoshi Variable, 'Source Sans Pro'; margin-right: 8%; height: 100%;">Confirm
-              <img style="width: 25%; padding-left: 3%;" src="../../assets/checkcircle.png" />
-            </ion-button>
+          <ion-col size="4" *ngIf="step == 2">
+            <!-- <ion-col size="2" style="height: 100%"></ion-col> -->
+            <ion-col
+              size="2"
+              class="ion-text-center"
+              style="height: 100%"
+              (click)="openPopup()"
+            >
+              <ion-button
+                shape="round"
+                class="button"
+                style="
+                  --background: #203139;
+                  font-weight: 700;
+                  color: #ffffff;
+                  font-size: 100%;
+                  font-family: Satoshi Variable, 'Source Sans Pro';
+                  height: 100%;
+                  width: 50%;
+                  float: right;
+                "
+                >Confirm
+                <img
+                  style="width: 25%; padding-left: 3%"
+                  src="../../assets/checkcircle.png"
+                />
+              </ion-button>
+            </ion-col>
           </ion-col>
         </ion-row>
-
       </div>
     </div>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document" style="height: 100%;">
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{'display':displayStyle}"
+  >
+    <div class="modal-dialog" role="document" style="height: 100%">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" *ngIf="step == 1">Do you want to Redeem?</h5>
-          <h5 class="modal-title" *ngIf="step == 2">Do you want to Sign Out?</h5>
+          <h5
+            class="modal-title"
+            *ngIf="step == 2 && businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
+          >
+            Do you want to Sign Out?
+          </h5>
+          <h5
+            class="modal-title"
+            *ngIf="step == 2 && businessGroupData != undefined && businessGroupData.isSignOutRequired == false"
+          >
+            Do you want to Confirm?
+          </h5>
         </div>
         <div class="modal-body">
-          <p class="modal-bodyText" *ngIf="step == 1">* Click Yes to Redeem Rewards.</p>
-          <p class="modal-bodyText" *ngIf="step == 2">* Click Yes to Sign Out.</p>
+          <p class="modal-bodyText" *ngIf="step == 1">
+            * Click Yes to Redeem Rewards.
+          </p>
+          <p
+            class="modal-bodyText"
+            *ngIf="step == 2 && businessGroupData != undefined && businessGroupData.isSignOutRequired == true"
+          >
+            * Click Yes to Sign Out.
+          </p>
+          <p
+            class="modal-bodyText"
+            *ngIf="step == 2 && businessGroupData != undefined && businessGroupData.isSignOutRequired == false"
+          >
+            * Click Yes to Confirm.
+          </p>
           <p class="modal-bodyText">* Click No to Cancel.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary modal-footerBtn" (click)="RedeemData()"
-            style="background-color: #2ac95d;" *ngIf="step == 1">Yes</button>
-          <button type="button" class="btn btn-primary modal-footerBtn" (click)="submit()"
-            style="background-color: #2ac95d;" *ngIf="step == 2">
-            Yes</button>
-          <button type="button" class="btn btn-secondary modal-footerBtn" data-dismiss="modal" (click)="closePopup()"
-            style="background-color: #657176;">
-            No</button>
+          <button
+            type="button"
+            class="btn btn-primary modal-footerBtn"
+            (click)="RedeemData()"
+            style="background-color: #2ac95d"
+            *ngIf="step == 1"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary modal-footerBtn"
+            (click)="submit()"
+            style="background-color: #2ac95d"
+            *ngIf="step == 2"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary modal-footerBtn"
+            data-dismiss="modal"
+            (click)="closePopup()"
+            style="background-color: #657176"
+          >
+            No
+          </button>
         </div>
       </div>
     </div>
